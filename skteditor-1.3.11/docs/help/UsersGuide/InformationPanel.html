@@ -1,0 +1,121 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Bernie Harris">
+   <meta name="GENERATOR" content="Mozilla/4.75 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000FF" vlink="#FF0000" alink="#000088">
+
+<h1>
+Information Panel</h1>
+The <tt><b>Information</b> </tt>panel allow the user to view general information
+about the editor and the file that is currently being opened.&nbsp; The
+following describes each of the fields displayed on the <b><tt>Information</tt></b>
+panel.
+<h2>
+<a NAME="ProgramVersion"></a>Program version</h2>
+This field identifies the version of the SKTEditor that is being used.
+<h2>
+<a NAME="ProgramBuildDate"></a>Program build date</h2>
+This field contains the date when the SKTEditor was built.&nbsp; This information
+is generally redundant for production builds of the editor but is useful
+for Engineering builds.
+<h2>
+<a NAME="ProgramBuildPlatform"></a>Program build platform</h2>
+This field identifies the platform on which the SKTEditor was built.
+<h2>
+<a NAME="ProgramBuildCompiler"></a>Program build compiler</h2>
+This field identifies the compiler used to build the SKTEditor.
+<h2>
+<a NAME="FileName"></a>File Name</h2>
+This field identifies the file that is currently being edited.&nbsp; A
+value of New File indicates that the file has not yet been saved with a
+name.
+<h2>
+<a NAME="CdfLibVersion"></a>CDF library version</h2>
+This field identifies the version of the CDF library that is currently
+being used by this application.  Refer to CDF documentation 
+(see https://cdf.gsfc.nasa.gov/) for more 
+information.
+<h2>
+<a NAME="CdfVersion"></a>CDF File Version</h2>
+The version of the CDF library used to create the file.&nbsp; Refer to
+CDF documentation (see https://cdf.gsfc.nasa.gov/) for more information.
+<h2>
+<a NAME="LibraryLastLeapSecond"></a>Library Last Leap Second</h2>
+The date of the last leap second known by the CDF library currently 
+reading/writing the file.&nbsp; Refer to
+CDF documentation (see https://cdf.gsfc.nasa.gov/) for more information.
+<h2>
+<a NAME="FileLastLeapSecond"></a>File Last Leap Second</h2>
+The date of the last leap second known by the software that created the file. 
+The following describes possible values:
+<ul>
+  <li>A date (e.g., 2015-07-01).  This is the date of the last leap second
+      which was known at the time the file was created.  If all the TT2000
+      time values in the file are before this date then the TT2000 values
+      are correct with respect to leap seconds.</li>
+  <li><code>unknown</code>.  The file was created with an old CDF library and
+      the correctness of TT2000 time values is unknown.</li>
+  <li><code>infinite</code>.  The file was created with TT2000 values that 
+      are correct for all time because they didn't depend upon knowing 
+      leap second dates.</li>
+  <li><code>error</code>.  An error occurred when attempting to determine
+      this value.</li>
+</ul>
+Refer to
+CDF documentation (see https://cdf.gsfc.nasa.gov/) for more information.
+<h2>
+<a NAME="CdfEncoding"></a>CDF Encoding</h2>
+A CDF's data encoding affects how its attribute entry and variable data
+values are stored (on disk).&nbsp; Refer to CDF documentation 
+(see https://cdf.gsfc.nasa.gov/) for more information.
+<h2>
+<a NAME="CdfMajority"></a>CDF Majority</h2>
+A CDF's variable majority determines the order in which variable values
+(within the variable arrays) are stored in the CDF&nbsp; file(s).&nbsp;
+Refer to CDF documentation (see https://cdf.gsfc.nasa.gov/)
+for more information.
+<h2>
+<a NAME="NumberOfVariables"></a>Number of Variables</h2>
+The number of variables defined in the file.
+<h2>
+<a NAME="NumberOfAttributes"></a>Number of Attributes</h2>
+The number of attributes defined in the file.
+<h2>
+<a NAME="Compression"></a>Compression</h2>
+The data compression algorithm used at the CDF file level.&nbsp; Compression
+may also be specified at the individual variable level.&nbsp; Refer to
+CDF documentation (see https://cdf.gsfc.nasa.gov/)
+for more information.
+<h2>
+<a NAME="CompressionPercent"></a>Compression Percent</h2>
+If compressed, the percentage of the uncompressed size of the CDF needed
+to store the compressed CDF.&nbsp; Refer to CDF documentation 
+(see https://cdf.gsfc.nasa.gov/)
+for more information.
+
+<h2><a NAME="Checksum"></a>Checksum</h2>
+The checksum option value for this CDF.&nbsp; A value of 
+<b><code>Not Applicable</code></b>
+is shown for versions of CDF prior to 3.2 which did not support the checksum
+option.  For CDF version 3.2 and higher, the value is controlled by the
+<b><code>CDF_CHECKSUM</code></b> environment variable or the 
+<b><code>cdf.checksum</code></b> Java property value.
+Refer to CDF documentation 
+(see https://cdf.gsfc.nasa.gov/) for more information.
+
+<h2>
+See also:</h2>
+
+<ul>
+<li>
+The CDF User's Guide (available at&nbsp; https://cdf.gsfc.nasa.gov/).</li>
+
+<li>
+The CDF Programers Guide (available at&nbsp; https://cdf.gsfc.nasa.gov/).</li>
+</ul>
+
+</body>
+</html>

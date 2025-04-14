@@ -1,0 +1,180 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Bernie Harris">
+   <meta name="GENERATOR" content="Mozilla/4.75 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000FF" vlink="#FF0000" alink="#000088">
+
+<h1>
+Variables</h1>
+We have identified three types of variables to be included in ISTP/IACG
+CDF files: data variables of primary importance (e.g., density, magnetic_field,
+particle_flux), support_data variables of secondary importance (e.g., time,
+energy_bands associated with particle_flux) and metadata variables (e.g.,
+a variable holding "Bx,By,Bz" to label magnetic field). Variables are defined
+with CDF specifications and required attributes. Data variables also have
+attached variables for time and dependencies (support_data) and labels
+(metadata). The support_data variables can be attached to data variables
+via DEPEND_i variable attributes. Metadata variables can be attached to
+data variables via LABL_PTR_i variable attributes (see below).
+<p>Examples of data and support_data variables commonly found in ISTP/IACG
+investigations are shown below. They are mapped to their corresponding
+dimensions and sizes in CDF.
+<blockquote>
+<li>
+Density and Temperature (data) in this example are scalars; in CDF they
+are associated with zero dimension and no size.</li>
+
+<li>
+Plasma velocity, electric and magnetic fields (data) are vectors, i.e.,
+three orthogonal components in some coordinate system, stored in one-dimension
+of size 3.</li>
+
+<li>
+Particle flux, for this example, has values at eight energy channels. Flux
+(data) and Energy (support_data) are stored as one-dimensional variables
+of size 8.</li>
+
+<li>
+The image array (data) maps into a two-dimensional variable with sizes
+256 and 256. Latitude and longitude (support_data) are one-dimensional
+variables of size 256, providing the necessary coordinate indices for the
+image array.</li>
+</blockquote>
+
+<h2>
+<a NAME="Data"></a>Data</h2>
+These are variables of primary importance (e.g., density, magnetic_field,
+particle_flux). Data variables are completely defined with the combination
+of CDF specifications, variable attributes, and attached variables such
+as time and dependencies (support_data) and labels (metadata).
+<p>Data is always either Real or Integer type. Data is always time (record)
+varying, but can be of any dimensionality. Real or Integer data are always
+defined as having one element.
+<p>The following variable attributes are required.
+<br>&nbsp;
+<blockquote>
+<li>
+CATDESC</li>
+
+<li>
+DEPEND_0 = Epoch</li>
+
+<li>
+DEPEND_i</li>
+
+<li>
+DISPLAY_TYPE (time_series, spectrogram, stack_plot,image)</li>
+
+<li>
+FIELDNAM</li>
+
+<li>
+FILLVAL</li>
+
+<li>
+FORMAT/FORM_PTR</li>
+
+<li>
+LABLAXIS/LABL_PTR_i</li>
+
+<li>
+UNITS/UNIT_PTR</li>
+
+<li>
+VALIDMIN</li>
+
+<li>
+VALIDMAX</li>
+
+<li>
+VAR_TYPE = data</li>
+</blockquote>
+
+<p><br>The need for DEPEND_i (other than DEPEND_0) and either LABLAXIS
+or LABL_PTR_i depends on the data itself and how it will be displayed.
+<h2>
+<a NAME="Support_Data"></a>Support_Data</h2>
+These are variables of secondary importance (e.g., time, energy_bands associated
+with particle_flux) .
+<p>Support_data is always either Real or Integer type. Support_data is
+usually time invariant, but can be time varying.
+<p>If a support_data variable is attached to a data variable via DEPEND_i,
+then it must be of the same size as the dimension i. See example below.
+Real or Integer data are always defined as having one element.
+<p>The following variable attributes are required.
+<br>&nbsp;
+<ul>
+<li>
+CATDESC</li>
+
+<li>
+DEPEND_0 = Epoch (if time varying)</li>
+
+<li>
+FIELDNAM</li>
+
+<li>
+FILLVAL (if time varying)</li>
+
+<li>
+FORMAT/FORM_PTR</li>
+
+<li>
+UNITS/UNIT_PTR</li>
+
+<li>
+VALIDMIN (if time varying)</li>
+
+<li>
+VALIDMAX (if time varying)</li>
+
+<li>
+VAR_TYPE = support_data</li>
+</ul>
+
+<h2>
+<a NAME="Metadata"></a>Metadata</h2>
+These are variables of secondary importance e.g., a variable holding "Bx,By,Bz"
+to label magnetic field).
+<p>Metadata is always character type. Metadata is always time invariant
+if it is used to label a data variable. Metadata can be time varying if
+it is NOT used as a label.
+<p>If a metadata variable is attached to a data variable via LABL_PTR_i,
+then it must be of the same size as the dimension i.
+<p>Character metadata must define the number of elements to be the same
+as the number of characters used in its value.
+<p>The following variable attributes are required.
+<ul>
+<li>
+CATDESC</li>
+
+<li>
+DEPEND_0 = Epoch (if time varying)</li>
+
+<li>
+FIELDNAM</li>
+
+<li>
+FILLVAL (if time varying)</li>
+
+<li>
+FORMAT/FORM_PTR</li>
+
+<li>
+VAR_TYPE = support_data</li>
+</ul>
+
+<h2>
+See also:</h2>
+
+<ul>
+<li>
+&nbsp;Space Physics Guidelines for CDF 
+(see https://spdf.gsfc.nasa.gov/sp_use_of_cdf.html).</li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Bernie Harris">
+   <meta name="GENERATOR" content="Mozilla/4.75 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000FF" vlink="#FF0000" alink="#000088">
+
+<h2>
+Global Attributes</h2>
+The Global Attributes panel allow the user to view and edit the ISTP/SPDF
+defined global attributes of the file.&nbsp; Global attributes are used
+to provide information about the data set as an entity. Together with variables
+and variable attributes, the global attributes make the data correctly
+and independently usable by someone not connected with the instrument team,
+and hence, a good archive product.&nbsp; Global attributes are catagorized
+as those which are required for ISTP guideline compliance and those that
+are merely recommended.&nbsp; The definition of each global attribute is
+contained in the&nbsp; ISTP/SPDF Guidelines 
+(see https://spdf.gsfc.nasa.gov/istp_guide/gattributes.html).
+<br>&nbsp;
+<center>
+<h2>
+<a NAME="Required"></a>Required Attributes</h2></center>
+
+<h2>
+<a NAME="Project"></a>Project</h2>
+This attribute identifies the name of the project and indicates ownership.
+For ISTP missions and investigations, the value used is "ISTP>International
+Solar-Terrestrial Physics". For the Cluster mission, the value is "STSP
+Cluster>Solar Terrestrial Science Programmes, Cluster". Other acceptable
+values are "IACG>Inter-Agency Consultative Group", "CDAWxx>Coordinated
+Data Analysis Workshop xx", "SPDS>Space Physics Data System", and "NSSDC>National
+Space Science Data Center Archived Data". Others may be defined in future.
+This attribute can be multi-valued if the data has been supplied to more
+than one project.
+<h2>
+<a NAME="SourceName"></a>Source Name</h2>
+This attribute identifies the mission or investigation that contains the
+sensors. For ISTP, this is the mission name for spacecraft missions or
+the investigation name for ground-based or theory investigations. Both
+a long name and a short name are provided. This attribute should be single
+valued.
+<h2>
+<a NAME="Descriptor"></a>Descriptor</h2>
+This attribute identifies the name of the instrument or sensor that collected
+the data. Both a long name and a short name are given. An example for ISTP
+is "EPI>Energetic Particles and Ion Composition". The short name should
+be limited to from 2 to 4 characters for consistency with ISTP. This attribute
+should be single valued.
+<h2>
+<a NAME="DataType"></a>Data Type</h2>
+This attribute identifies the data type of the CDF data set. Both a long
+name and a short name are given. For ISTP exchangeable data products the
+values are "Kn>Key Parameter" for approximately minute averaged survey
+data, and "Hn>High Resolution data" for certified data of higher resolution
+than Key Parameters.$n$ can run from 0 to 9 to allow for more than one
+kind of data product. For Cluster/CSDS this can either be "SP>Summary Parameter"
+or "PP>Prime Parameter". Other possible data types may be defined in future.
+If any of these data sets are modified or used to produce derived products,
+the data type should be, e.g., "Mn>Modified Data n", where n is from 0
+to 9.
+<h2>
+<a NAME="FileNamingConvention"></a>File Naming Convention</h2>
+This attribute value describes the file naming convention that is used in
+naming CDF files.  The user may select from a number of different conventions
+involving the source, datatype, descriptior, and date/time values.
+<h2>
+<a NAME="PiName"></a>PI Name</h2>
+This attribute value should include first initial and last name.
+<h2>
+<a NAME="PiAffiliation"></a>PI Affiliation</h2>
+This attribute value should include a recognizable abbreviation.
+<h2>
+<a NAME="Disipline"></a>Discipline</h2>
+This attribute describes both the science discipline and subdiscipline.
+More than one entry is allowed.
+<h2>
+<a NAME="MissionGroup"></a>Mission Group</h2>
+This attribute has a single value and is used to facilitate making choices
+of source through CDAWeb (https://cdaweb.gsfc.nasa.gov/).
+<h2>
+<a NAME="DataVersion"></a>Data Version</h2>
+This attribute identifies the version of a particular CDF data file for
+a given date, e.g., the file
+<br>GE_K0_MGF_19920923_V01 is the first version of data for 1992 September
+23. Each time this particular data file is reproduced - for recalibration
+or other reasons - the Data_version is incremented by 1. Data_version always
+starts at `1'.
+<h2>
+<a NAME="InstrumentTypes"></a>Instrument Types</h2>
+This attribute is used to facilitate making choices of instrument type
+through CDAWeb. More than one entry is allowed.
+<h2>
+<a NAME="LogicalSourceDescription"></a>Logical Source Description</h2>
+This attribute contains a more readable description of the cryptic
+<code>Logical_source</code> attribute.
+<h2>
+<a NAME="DescriptiveText"></a>Descriptive Text</h2>
+This attribute is an NSSDC standard global attribute which is a text description
+of the experiment whose data is included in the CDF. A reference to a journal
+article(s) or to a World Wide Web page describing the experiment is essential,
+and constitutes the minimum requirement. A written description of the data
+set is also desirable. This attribute can have as many entries as necessary
+to contain the desired information.
+<br>&nbsp;
+<br>&nbsp;
+<center>
+<h2>
+<a NAME="Recommended"></a>Recommended Attributes</h2></center>
+
+<h2>
+<a NAME="Acknowledgment"></a>Acknowledgement</h2>
+Text string at PI disposal allowing for information on expected acknowledgment
+if data is citable.
+<h2>
+<a NAME="RulesOfUse"></a>Rules of Use</h2>
+Text containing information on, {\it e.g.} citability and PI access restrictions.
+This may point to a World Wide Web page specifying the rules of use.
+<!--
+<h2>
+<a NAME="AdidRef"></a>ADID Ref</h2>
+This attribute stores the control authority identifier associated with
+the detached SFDU label. If no control authority identifier has been assigned,
+then the identifier associated with the ISTP/IACG Guidelines (NSSD0241)
+or with CDF (NSSD0110) can be used.
+-->
+<h2>
+<a NAME="SpaseId"></a>SPASE ID</h2>
+Unique dataset identifier assigned by http://www.spase-group.org/, of the 
+form spase://VSPO/"UNIQUE_ID", where "UNIQUE_ID" is the ID assigned to 
+the SPASE resource record for the dataset in the SPASE system. The SPASE 
+resource record provides metadata about the dataset, including pointers 
+to locations holding the data. 
+<h2>
+<a NAME="TimeResolution"></a>Time Resolution</h2>
+Specifies time resolution of the file, e.g., "3 seconds".
+<h2>
+<a NAME="GeneratedBy"></a>Generated by</h2>
+This attribute allows for the generating data center/group to be identified.
+<h2>
+<a NAME="GenerationDate"></a>Generation Date</h2>
+Date stamps the creation of the file using the syntax yyyymmdd, e.g., "19920923".
+This is distinct from the date in "validate" below which records the times
+of later validation processes.
+<h2>
+<a NAME="LinkText"></a>Link Text</h2>
+This attribute stores text describing on-line data available at PI or CoI
+web sites. This attribute is used in conjunction with "LINK_TITLE" and
+"HTTP_LINK". There can be up to 5 entries for each - there MUST be a corresponding
+entry of "LINK_TITLE" and "HTTP_LINK" for each "LINK_TEXT" entry. CDAWeb
+will then link to the URL given by "HTTP_LINK" using the "LINK_TITLE" and
+the description in "LINK_TEXT", on the CDAWeb Data Explorer page.&nbsp;
+For example
+<p>&nbsp;&nbsp;&nbsp;&nbsp; "LINK_TEXT" = 3-sec MGF magnetic field 1 Sep
+1993 through 30 Sep 1997 available at
+<br>&nbsp;&nbsp;&nbsp;&nbsp; "LINK_TITLE" = ISAS DARTS
+<br>&nbsp;&nbsp;&nbsp;&nbsp; "HTTP_LINK" = http://www.darts.isas.ac.jp/spdb/index.html
+<p>will give the following link:
+<p>3-sec MGF magnetic field 1 Sep 1993 through 30 Sep 1997 available at
+<a href="http://www.darts.isas.ac.jp/spdb/index.html">ISAS
+DARTS</a>
+<h2>
+<a NAME="LinkTitle"></a>Link Title</h2>
+This attribute stores the title of the web site holding on-line data available
+at PI or CoI web sites. This attribute is used in conjunction with "LINK_TEXT"
+and "HTTP_LINK". There can be up to 5 entries for each - there MUST be
+a corresponding entry of "LINK_TEXT" and "HTTP_LINK" for each "LINK_TITLE"
+entry. CDAWeb will then link to the URL given by "HTTP_LINK" using the
+"LINK_TITLE" and the description in "LINK_TEXT", on the CDAWeb Data Explorer
+page.
+<h2>
+<a NAME="HttpLink"></a>HTTP Link</h2>
+This attribute stores the URL for the PI or CoI web site holding on-line
+data. This attribute is used in conjunction with "LINK_TEXT" and "LINK_TITLE".
+There can be up to 5 entries for each - there MUST be a corresponding entry
+of "LINK_TEXT" and "LINK_TITLE" for each "HTTP_LINK" entry. CDAWeb will
+then link to the URL given by "HTTP_LINK" using the "LINK_TITLE" and the
+description in "LINK_TEXT", on the CDAWeb Data Explorer page.
+<h2>
+<a NAME="ModificationHistory"></a>ModificationHistory</h2>
+This attribute is an NSSDC standard global attribute which is used to denote
+the history of modifications made to the CDF data set. The attribute should
+contain a description of all significant changes to the data set. This
+attribute is not directly tied to Data_version, but each version produced
+will contain the relevant modifications. This attribute can have as many
+entries as necessary to contain the desired information.
+<h2>
+See also:</h2>
+
+<ul>
+<li>
+&nbsp;Space Physics Guidelines for CDF 
+(see https://spdf.gsfc.nasa.gov/sp_use_of_cdf.html).</li>
+
+<li>
+CDA Web (https://cdaweb.gsfc.nasa.gov/).</li>
+</ul>
+
+</body>
+</html>

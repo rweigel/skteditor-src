@@ -1,0 +1,32 @@
+source.mapping=
+CN;CANOPUS>Canadian Auroral Network Open Program Unified Study:
+DE;DE>Dynamics Explorer:
+DN;DARN>Dual Auroral Radar Network:
+EQ;EQ>Equator-S:
+FA;FAST>FAST Auroral Snapshot Explorer:
+G6;GOES_6>Geostationary Operational Environmental Satellite 6:
+G7;GOES_7>Geostationary Operational Environmental Satellite 7:
+G8;GOES_8>Geostationary Operational Environmental Satellite 8:
+G9;GOES_9>Geostationary Operational Environmental Satellite 9:
+GE;GEOTAIL>Geomagnetic Tail:
+I1;ISIS-1>International Satellite for Ionosphere Studies 1:
+I2;ISIS-2>International Satellite for Ionosphere Studies 2:
+I8;IMP-8>Interplanetary Monitoring Platform 8:
+IA;INTERBALL-AURORAL>Interball Auroral Probe:
+IT;INTERBALL-TAIL>Interball  Tail Probe:
+IG;INTERBALL-GROUND>Ground Based Data:
+IM;IMAGE>Imager for Magnetopause to Aurora Global Exploration:
+L0;LANL1990_095>Los Alamos National Laboratory 1990:
+L1;LANL1991_080>Los Alamos National Laboratory 1989:
+L4;LANL1994_084>Los Alamos National Laboratory 1994:
+L7;LANL1997A>Los Alamos National Laboratory 1997:
+l9;LANL1989_046>Los Alamos National Laboratory 1989:
+PO;POLAR>Polar Plasma Laboratory:
+SE;SESAME>Satellite Experiments Simultaneous with Antarctic Measurements:
+SL;STELAB>Solar-Terrestrial Environment Laboratory, Nagoya U.:
+SN;SONDRESTROM>Greenland Incoherent-Scatter Radar:
+SO;SOHO>Solar Heliospheric Observatory:
+SX;SAMPEX>Solar Anomalous Magnetospheric Particle Explorer:
+UY;ULYSSES>Ulysses:
+VI;VI>Viking (Swedish satellite with auroral imager):
+WI;WIND>Wind Interplanetary Plasma Laboratory:

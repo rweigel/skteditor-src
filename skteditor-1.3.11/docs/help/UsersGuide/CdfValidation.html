@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="Bernie Harris">
+  <meta name="GENERATOR"
+ content="Mozilla/4.75 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+</head>
+<body style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
+ alink="#000088" link="#0000ff" vlink="#ff0000">
+<h2>
+CDF Validation</h2>
+<h2>
+<a name="Introduction"></a>Introduction</h2>
+In addition to this application's ability to evaluate CDF files for
+conformance with<br>
+the&nbsp; Space Physics Data Facility
+Guidelines for CDF (see https://spdf.gsfc.nasa.gov/sp_use_of_cdf.html),
+the application can also evaluate CDF files with respect to more
+general criteria.&nbsp; This functionality is often used to enforce
+additional, mission/project specific standards.&nbsp; The validation
+criteria is specified in an Extensible Markup Language (XML) file.&nbsp; 
+Prior to validating a CDF file,
+you should set the criteria by which you want the CDF file validated.<br>
+<h2>
+<a name="SetCriteriaFile"></a>Setting the Validation Criteria File</h2>
+The validation criteria setting is retained between SKTEditor sessions
+so it will initially be the last used criteria.&nbsp; If this is not
+the criteria you want to use, it may be changed by selecting menu item<code>
+<span class="comment">Tools/CDF Validation/Set validation criteria file
+</span></code><span class="comment">and choosing either one of the
+included values or<code> Select File... </code>as shown below</span><br>
+<br>
+<span class="comment"><img alt="Tools Set Critieria File Menu Selection"
+ src="ToolsSetCriteriaFile.gif" style="width: 563px; height: 227px;"><br>
+<br>
+Choosing </span><span class="comment"><code>Select File... </code></span>will
+display a stand file chooser dialog from which you may select the
+criteria file that you want used.<br>
+<span class="comment"><br>
+Note:&nbsp; It is also possbile to set the validation criteria file
+using one of the following methods:<br>
+</span>
+<ul>
+  <li>Place a validation file named<code> CdfValidationCriteria.xml </code>in
+your home directory.</li>
+  <li>Set an environment variable</a> named
+      <code> CDF_VALIDATION_CRITERIA </code>to the name of the file.</li>
+  <li>Set a Java system property named<code> cdf.validation.criteria </code>
+      to the name of the file.</li>
+</ul>
+These methods are more commonly used when using the validation software
+in a command-line mode.<br>
+<h2>
+<a name="ValidateFile"></a>Validating a File</h2>
+To validate the current file, select the SKTEditor menu item<code> <span
+ class="comment">Tools/CDF Validation/Validate using <span
+ style="font-style: italic;">name</span> criteria.</span></code> <br>
+<br>
+<img alt="Tools Validate File Menu Selection"
+ src="ToolsValidateFile.gif" style="width: 525px; height: 220px;"><br>
+<br>
+Diagnostic messages
+concerning validation are desplayed in the <b><tt>Messages</tt></b>
+window
+which is displayed by selecting the <b><tt>Show Messages</tt></b>
+button
+at the bottom righthand corner of the editor window.
+<p><img alt="CDF Validation Messages" src="CdfValidationMessages.gif"
+ style="width: 765px; height: 335px;"><br>
+</p>
+<h2>See also:</h2>
+<ul>
+  <li> <a href="IstpCompliance.html">SPDF/ISTP Compliance</a></li>
+</ul>
+</body>
+</html>

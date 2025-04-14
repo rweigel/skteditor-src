@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE map
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 1.0//EN"
+         "http://java.sun.com/products/javahelp/map_1_0.dtd">
+
+<map version="1.0">
+       
+	<mapID target="toplevelfolder" url="images/toplevel.gif" />
+	<mapID target="about" url="UsersGuide/About.html" />
+	<mapID target="TutorialIntro" url="Tutorial/Intro.html" />
+	<mapID target="TutorialBasics" url="Tutorial/Intro.html#Basic" />
+	<mapID target="TutorialConstructing" url="Tutorial/Intro.html#Constructing" />
+	<mapID target="TutorialSpecialized" url="Tutorial/Intro.html#Specialized" />
+       	<mapID target="Intro" url="UsersGuide/Intro.html" />
+        <mapID target="IstpCompliance" url="UsersGuide/IstpCompliance.html" />
+        <mapID target="ComplianceIntro" 
+               url="UsersGuide/IstpCompliance.html#Introduction" />
+        <mapID target="ComplianceGlobalAttributes" 
+               url="UsersGuide/IstpCompliance.html#GlobalAttributes" />
+        <mapID target="ComplianceVariable" 
+               url="UsersGuide/IstpCompliance.html#Variable" />
+        <mapID target="ComplianceFile" 
+               url="UsersGuide/IstpCompliance.html#File" />
+        <mapID target="CdfValidation" url="UsersGuide/CdfValidation.html" />
+        <mapID target="ValidationIntro" 
+               url="UsersGuide/CdfValidation.html#Introduction" />
+        <mapID target="SetCriteriaFile" 
+               url="UsersGuide/CdfValidation.html#SetCriteriaFile" />
+        <mapID target="ValidateFile" 
+               url="UsersGuide/CdfValidation.html#ValidateFile" />
+	<mapID target="InformationPanel" 
+               url="UsersGuide/InformationPanel.html" />
+	<mapID target="ProgramVersion" 
+               url="UsersGuide/InformationPanel.html#ProgramVersion" />
+	<mapID target="ProgramBuildDate" 
+               url="UsersGuide/InformationPanel.html#ProgramBuildDate" />
+	<mapID target="ProgramBuildPlatform" 
+               url="UsersGuide/InformationPanel.html#ProgramBuildPlatform" />
+	<mapID target="ProgramBuildCompiler" 
+               url="UsersGuide/InformationPanel.html#ProgramBuildCompiler" />
+	<mapID target="FileName" 
+               url="UsersGuide/InformationPanel.html#FileName" />
+	<mapID target="CdfLibVersion" 
+               url="UsersGuide/InformationPanel.html#CdfLibVersion" />
+	<mapID target="CdfVersion" 
+               url="UsersGuide/InformationPanel.html#CdfVersion" />
+	<mapID target="LibraryLastLeapSecond" 
+               url="UsersGuide/InformationPanel.html#LibraryLastLeapSecond" />
+	<mapID target="FileLastLeapSecond" 
+               url="UsersGuide/InformationPanel.html#FileLastLeapSecond" />
+	<mapID target="CdfEncoding" 
+               url="UsersGuide/InformationPanel.html#CdfEncoding" />
+	<mapID target="CdfMajority" 
+               url="UsersGuide/InformationPanel.html#CdfMajority" />
+	<mapID target="NumberOfVariables" 
+               url="UsersGuide/InformationPanel.html#NumberOfVariables" />
+	<mapID target="NumberOfAttributes" 
+               url="UsersGuide/InformationPanel.html#NumberOfAttributes" />
+	<mapID target="Compression" 
+               url="UsersGuide/InformationPanel.html#Compression" />
+	<mapID target="CompressionPercent" 
+               url="UsersGuide/InformationPanel.html#CompressionPercent" />
+	<mapID target="Checksum" 
+               url="UsersGuide/InformationPanel.html#Checksum" />
+	<mapID target="GlobalAttributesPanel" 
+               url="UsersGuide/GlobalAttributesPanel.html" />
+	<mapID target="gAttrRequired" 
+               url="UsersGuide/GlobalAttributesPanel.html#Required" />
+	<mapID target="gAttrProject" 
+               url="UsersGuide/GlobalAttributesPanel.html#Project" />
+	<mapID target="gAttrSourceName" 
+               url="UsersGuide/GlobalAttributesPanel.html#SourceName" />
+	<mapID target="gAttrDescriptor" 
+               url="UsersGuide/GlobalAttributesPanel.html#Descriptor" />
+	<mapID target="gAttrDataType" 
+               url="UsersGuide/GlobalAttributesPanel.html#DataType" />
+	<mapID target="gAttrFileNamingConvention" 
+               url="UsersGuide/GlobalAttributesPanel.html#FileNamingConvention" />
+	<mapID target="gAttrPiName" 
+               url="UsersGuide/GlobalAttributesPanel.html#PiName" />
+	<mapID target="gAttrPiAffiliation" 
+               url="UsersGuide/GlobalAttributesPanel.html#PiAffiliation" />
+	<mapID target="gAttrDisipline" 
+               url="UsersGuide/GlobalAttributesPanel.html#Disipline" />
+	<mapID target="gAttrMissionGroup" 
+               url="UsersGuide/GlobalAttributesPanel.html#MissionGroup" />
+	<mapID target="gAttrDataVersion" 
+               url="UsersGuide/GlobalAttributesPanel.html#DataVersion" />
+	<mapID target="gAttrInstrumentTypes" 
+               url="UsersGuide/GlobalAttributesPanel.html#InstrumentTypes" />
+	<mapID target="gAttrLogicalSourceDescription" 
+               url="UsersGuide/GlobalAttributesPanel.html#LogicalSourceDescription" />
+	<mapID target="gAttrDescriptiveText" 
+               url="UsersGuide/GlobalAttributesPanel.html#DescriptiveText" />
+	<mapID target="gAttrRecommended" 
+               url="UsersGuide/GlobalAttributesPanel.html#Recommended" />
+	<mapID target="gAttrAcknowledgement" 
+               url="UsersGuide/GlobalAttributesPanel.html#Acknowledgement" />
+	<mapID target="gAttrRulesOfUse" 
+               url="UsersGuide/GlobalAttributesPanel.html#RulesOfUse" />
+<!--
+	<mapID target="gAttrAdidRef" 
+               url="UsersGuide/GlobalAttributesPanel.html#AdidRef" />
+-->
+	<mapID target="gAttrSpaseId" 
+               url="UsersGuide/GlobalAttributesPanel.html#SpaseId" />
+	<mapID target="gAttrTimeResolution" 
+               url="UsersGuide/GlobalAttributesPanel.html#TimeResolution" />
+	<mapID target="gAttrGeneratedBy" 
+               url="UsersGuide/GlobalAttributesPanel.html#GeneratedBy" />
+	<mapID target="gAttrGenerationDate" 
+               url="UsersGuide/GlobalAttributesPanel.html#GenerationDate" />
+	<mapID target="gAttrLinkText" 
+               url="UsersGuide/GlobalAttributesPanel.html#LinkText" />
+	<mapID target="gAttrLinkTitle" 
+               url="UsersGuide/GlobalAttributesPanel.html#LinkTitle" />
+	<mapID target="gAttrHttpLink" 
+               url="UsersGuide/GlobalAttributesPanel.html#HttpLink" />
+	<mapID target="gAttrModificationHistory" 
+               url="UsersGuide/GlobalAttributesPanel.html#ModificationHistory" />
+	<mapID target="Variables" 
+               url="UsersGuide/Variables.html" />
+	<mapID target="VariablesData" 
+               url="UsersGuide/Variables.html#Data" />
+	<mapID target="VariablesSupportData" 
+               url="UsersGuide/Variables.html#SupportData" />
+	<mapID target="VariablesMetadata" 
+               url="UsersGuide/Variables.html#Metadata" />
+	<mapID target="VariablesPanel" 
+               url="UsersGuide/VariablesPanel.html" />
+	<mapID target="VariableList" 
+               url="UsersGuide/VariablesPanel.html#VariableList" />
+	<mapID target="CdfSpecification" 
+               url="UsersGuide/VariablesPanel.html#CdfSpecification" />
+	<mapID target="Description" 
+               url="UsersGuide/VariablesPanel.html#Description" />
+	<mapID target="AxisInformation" 
+               url="UsersGuide/VariablesPanel.html#AxisInformation" />
+	<mapID target="PlotInformation" 
+               url="UsersGuide/VariablesPanel.html#PlotInformation" />
+	<mapID target="Depends" 
+               url="UsersGuide/VariablesPanel.html#Depends" />
+	<mapID target="VirtualVariable" 
+               url="UsersGuide/VariablesPanel.html#VirtualVariable" />
+	<mapID target="Values" 
+               url="UsersGuide/VariablesPanel.html#Values" />
+	<mapID target="ValidMinMax" 
+               url="UsersGuide/VariablesPanel.html#ValidMinMax" />
+	<mapID target="MenuIntro" url="UsersGuide/MenuIntro.html" />
+	<mapID target="FileMenu" url="UsersGuide/FileMenu.html" />
+	<mapID target="EditMenu" url="UsersGuide/EditMenu.html" />
+	<mapID target="VarMenu" url="UsersGuide/VariableMenu.html" />
+	<mapID target="ToolMenu" url="UsersGuide/ToolMenu.html" />
+	<mapID target="HelpMenu" url="UsersGuide/HelpMenu.html" />
+	<mapID target="AttributesEditor" 
+               url="UsersGuide/AttributesEditor.html" />
+	<mapID target="AttributesEditorIntro" 
+               url="UsersGuide/AttributesEditor.html#Introduction" />
+	<mapID target="AttributesEditorOpening" 
+               url="UsersGuide/AttributesEditor.html#Opening" />
+	<mapID target="AttributesEditorMenus" 
+               url="UsersGuide/AttributesEditor.html#Menus" />
+	<mapID target="AttributesEditorWindowMenu" 
+               url="UsersGuide/AttributesEditor.html#WindowMenu" />
+	<mapID target="AttributesEditorEditMenu" 
+               url="UsersGuide/AttributesEditor.html#EditMenu" />
+	<mapID target="AttributesEditorViewingGlobalAttributes" 
+               url="UsersGuide/AttributesEditor.html#ViewingGlobalAttributes" />
+	<mapID target="AttributesEditorViewingVariableAttributes" 
+               url="UsersGuide/AttributesEditor.html#ViewingVariableAttributes" />
+	<mapID target="AttributesEditorNewAttribute" 
+               url="UsersGuide/AttributesEditor.html#NewAttribute" />
+	<mapID target="Tips" url="UsersGuide/Tips.html" />
+	<mapID target="CutPasteTip" url="UsersGuide/Tips.html#CutPaste" />
+	<mapID target="AdditionalAtttributesTip" 
+               url="UsersGuide/Tips.html#AdditionalAttributes" />
+</map>

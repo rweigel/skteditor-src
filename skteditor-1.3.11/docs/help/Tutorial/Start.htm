@@ -1,0 +1,209 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body>
+
+<h1>
+<a NAME="Configuration"></a>Configuration and installation instructions</h1>
+
+<p>Configuration and installation instructions for the SKTEditor are available
+at the SKTEditor's web site (http://sscweb.gsfc.nasa.gov/skteditor/).</p>
+
+<!--
+<object classid="java:com.sun.java.help.impl.JHSecondaryViewer"><param name="content" value="http://sscweb.gsfc.nasa.gov/skteditor/"><param name="viewerActivator" value="javax.help.LinkButton"><param name="viewerStyle" value="javax.help.SecondaryWindow"><param name="viewerSize" value="500,600"><param name="text" value="SKTEditor Web site"><param name="iconByName" value="../../images/toolbarButtonGraphics/development/WebComponent24.gif"></object>
+-->
+
+<p>Additional, on-line help is available from the application's 
+<b><tt>help</tt></b> menu.</p>
+
+<h1>
+<a NAME="GettingStarted"></a><b>Getting started</b></h1>
+This section provides a quick introduction to the SKTEditor.&nbsp; It gives
+some background knowledge to understand the purpose of this application.
+This tutorial then takes you through the creation of a simple ISTP compliant
+file.
+<h2>
+Using the SKTEditor to create a simple ISTP compliant file</h2>
+The easiest way to understand how the SKTEditor works is to use it.&nbsp;
+The SKTEditor enables you to edit or construct new ISTP compliant CDF files
+using a GUI tool.&nbsp; As a first example you can create a new file with
+only an epoch variable add a scalar variable.
+<p>This will demonstrate how to:
+<ul>
+<li>
+Create a new CDF file</li>
+
+<li>
+Navigate through the tabbed panels</li>
+
+<li>
+check for ISTP compliance</li>
+
+<li>
+Save your file</li>
+</ul>
+
+<h2>
+<b>Creating your CDF file</b></h2>
+After successfully launching the application, you will see the following
+<p><img SRC="InformationPage.gif" height=669 width=489>
+<p>This first page is for information purposes only. It reports on the
+software components being used and gives a basic description of the file
+being opened.&nbsp; As you can see, starting the editor automatically generates
+the creation of a new file.
+<br>&nbsp;
+<blockquote>1. Click on the tabbed panel to select the <b><tt>ISTP Global
+Attributes</tt></b></blockquote>
+<img SRC="GlobalPanel.gif" height=669 width=489>
+<br>&nbsp;
+<p>Notice that the menu bar has changed&nbsp; to <b><tt>File, Edit, Tools</tt></b>
+and <b><tt>Help</tt></b><i>.</i><i></i>
+<p><i>&nbsp;</i>The&nbsp;<object classid="java:com.sun.java.help.impl.JHSecondaryViewer"><param name="content" value="../UsersGuide/GlobalAttributesPanel.html""><param name="viewerActivator" value="javax.help.LinkButton"><param name="viewerStyle" value="javax.help.SecondaryWindow"><param name="viewerSize" value="500,600"><param name="text" value="Global Attributes"><param name="iconByName" value="../../images/toolbarButtonGraphics/navigation/Up16.gif"></object>
+panel is divided into two sections, the required attributes and the recommended
+attributes.&nbsp; To insure compliance, you need to fill in a value for
+each required fields.&nbsp; The recommended are discretionary.
+<p>The editable pull down menus make it convenient to select values in
+standard cases.
+<p><img SRC="PullDown.gif" height=185 width=214>
+<br>&nbsp;
+<blockquote>2. Start filling in the global attributes values.</blockquote>
+<img SRC="GlobalExample.gif" height=673 width=489>
+<p>If you want to ensure that the global attributes do meet the minimum
+ISTP standard, select the <b><tt>Tools</tt></b> menu, then the<i> </i><b><tt>ISTP
+Compliance Check</tt></b> menu item and finally click on <b><tt>Global
+Attributes.</tt></b>
+<p><img SRC="GlobalComp.gif" height=66 width=306>
+<p>A compliance check is performed and the status available on the status
+bar and the message window.&nbsp; Both are located at the bottom of the
+panel.
+<p>The Status bar gives a color coded abbreviated form of the status of
+the current editor operation.&nbsp; It varies between blue for Ready, Yellow
+for Warning and Red to indicate an ISTP compliance error.
+<br>In this example, with all of the required attributes having been validated,
+the Status Area remains blue and displays the following message:
+<p><img SRC="BlueStatus.gif" height=40 width=348>
+<p>To access thet message window, click on the <b><tt>Show Messages</tt></b>
+button. The following window will open:
+<p><img SRC="Message1.gif" height=146 width=344>
+<p>If the global attribute entries or lack of, had not been consistent
+with the ISTP recommended format, it would have been indicated by the status
+area changing color and text as such:
+<p><img SRC="RedStatus.gif" height=42 width=360>
+<p>and the message window would contain information on the attribute(s)
+to change/add.
+<p><img SRC="Message2.gif" height=158 width=369>
+<br>&nbsp;
+<p>The next step consists of defining the&nbsp;<object classid="java:com.sun.java.help.impl.JHSecondaryViewer"><param name="content" value="../UsersGuide/Variables.html""><param name="viewerActivator" value="javax.help.LinkButton"><param name="viewerStyle" value="javax.help.SecondaryWindow"><param name="viewerSize" value="500,600"><param name="text" value="Variables"><param name="iconByName" value="../../images/toolbarButtonGraphics/navigation/Up16.gif"></object>
+<br>&nbsp;
+<blockquote>3. Click on the tabbed panel to select the <b><tt>Variables</tt></b>
+panel</blockquote>
+
+<p><br><img SRC="Variablepanel.gif" height=677 width=529>
+<p>Notice that the menu bar has again changed to include <b><tt>Variables</tt></b><i>.
+</i>The
+variable list<i> </i>to the left comprises only one variable, the
+<i>Epoch</i>
+variable.&nbsp; The rest of the
+<p><object classid="java:com.sun.java.help.impl.JHSecondaryViewer"><param name="content" value="../UsersGuide/VariablesPanel.html""><param name="viewerActivator" value="javax.help.LinkButton"><param name="viewerStyle" value="javax.help.SecondaryWindow"><param name="viewerSize" value="500,600"><param name="text" value="Variables Panel"><param name="iconByName" value="../../images/toolbarButtonGraphics/navigation/Up16.gif"></object>gives&nbsp;
+specific informations on each variable.&nbsp; It comprises the
+<ul>
+<li>
+<b><a href="../UsersGuide/VariablesPanel.html#CdfSpecification">CDF Specifications</a>
+--</b>a non editable area displaying specifics on the selected variable.</li>
+</ul>
+
+<ul>
+<li>
+<b><a href="../UsersGuide/VariablesPanel.html#Description">Description</a>
+--</b>editable fields to enter a description of the selected variable</li>
+</ul>
+
+<ul>
+<li>
+<b><a href="../UsersGuide/VariablesPanel.html#AxisInformation">Axis Information</a>
+--</b>depending on the Plot information, you will be able to edit selected
+field(for the Epoch variable it is limited to Label1, Format and Units).</li>
+</ul>
+
+<ul>
+<li>
+<b><a href="../UsersGuide/VariablesPanel.html#PlotInformation">Plot Information</a>
+--</b>depending on the variable type, you may be able to define a display
+type and enter display argument.</li>
+</ul>
+
+<ul>
+<li>
+<b><a href="../UsersGuide/VariablesPanel.html#Depends">Depends Information</a>
+--</b>(depending on the variable, allows you to enter the dependencies
+for the selected variable.</li>
+</ul>
+Selecting <i>Epoch</i> from the variable list will introduce its default
+global attributes and specifications
+<p><img SRC="EpochVariable.gif" height=664 width=527>
+<br>&nbsp;
+<p>The <a href="../UsersGuide/VariablesPanel.html#ValidMinMax">Valid Min
+and Valid Max</a> fields wich are required where added to the panel.
+<p><img SRC="ValidMinMax.gif" height=176 width=178>
+<br>&nbsp;
+<h2>
+<b>Adding a Variable to your CDF file</b></h2>
+
+<p><br><i>Epoch</i> is given to you whenever you create a new file.&nbsp;
+Let us assume that you now need to define a <i>density</i> scalar variable.
+<blockquote>&nbsp;&nbsp;&nbsp; 1. Select&nbsp; <b><tt>New</tt></b> under
+the <b><tt>Variables</tt></b> menu</blockquote>
+<img SRC="NewMenu.gif" height=194 width=107>
+<p>The New Variable Dialog window will be displayed.
+<blockquote>2. You need to enter <i>Density</i> in the <b><tt>Name</tt></b>
+field, select the <b><tt>Data Type</tt></b> to be <i>CDF_REAL4</i>,&nbsp;
+check the <b>Record Variance (Time)</b> box, keep the <b><tt>Dimensions</tt></b>
+field to<i> 0</i> and select <b><tt>Create</tt></b>:</blockquote>
+<img SRC="CreateDensity.gif" height=400 width=350>
+<p>The<i> Density</i> variable has been added to your CDF file:
+<p><img SRC="DensitySpec.gif" height=73 width=603>
+<br>&nbsp;
+<blockquote>3.Check for Compliance</blockquote>
+There are two ways to check for compliance per variable.
+<p>The <b><tt>Check</tt></b> button
+<p><img SRC="CheckButton.gif" height=62 width=58>
+<p>or the <b><tt>Variables</tt></b> Menu via the <b><tt>Check</tt></b>
+menu item
+<p>The following status will be displayed:
+<p><img SRC="YellowStatus.gif" height=38 width=539>
+<p>and the following message:
+<p><img SRC="Message3.gif" height=179 width=375>
+<br>&nbsp;
+<blockquote>4. Make your file ISTP compliant by adding the missing fields</blockquote>
+<img SRC="DensityVariable.gif" height=688 width=546>
+<br>&nbsp;
+<br>&nbsp;
+<h2>
+<b>Saving your CDF file</b></h2>
+
+<blockquote>1. Select <b><tt>Save As</tt></b> under the<b><tt> File</tt></b>
+menu:
+<p><img SRC="SaveAs.gif" height=151 width=104>
+<br>&nbsp;</blockquote>
+A <b><tt>Save</tt></b> window listing the CDF file in your directory and
+prompting you for a file name will be dispalyed:
+<p><img SRC="Save.gif" height=327 width=508>
+<br>&nbsp;
+<blockquote>2. Enter a <i>name</i> with a cdf extension and click on <b><tt>Save</tt></b>.</blockquote>
+Your new ISTP compliant CDF file is now saved and could be edited using
+the SKTEditor again.
+<br>&nbsp;
+<h2>
+<b>Summary</b></h2>
+You have gone through the steps of generating an ISTP compliant CDF file,
+editing it, and saving the resulting file.&nbsp; Keep in mind that the
+main purpose of the SKTEditor application is to verify the ISTP compliance
+of a given CDF file, and help through diagnosis and easy to use GUI interface,&nbsp;
+to enforce this compliance.&nbsp; This application, however, does not limit
+you when saving your file, and will save any CDF files.
+<br>Some variable attribute entries are automatically generated, if missing
+or incorrect, but will be ignored if the file is not saved.
+</body>
+</html>

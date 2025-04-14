@@ -1,0 +1,191 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Bernie Harris">
+   <meta name="GENERATOR" content="Mozilla/4.75 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000FF" vlink="#FF0000" alink="#000088">
+
+<h1>
+Attributes Editor</h1>
+
+<h2>
+<a NAME="Introduction"></a>Introduction</h2>
+The Attributes Editor is a tool to allow advanced users to view and edit
+global attributes and variable attributes that are not members of the ISTP/SPDF
+Guidelines (see https://spdf.gsfc.nasa.gov/istp_guide/istp_guide.html)
+required or recommended set of attributes.
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<th NOSAVE>Note</th>
+</tr>
+
+<tr>
+<td>The Attributes Editor is intended for <b>advanced users only</b>.&nbsp;
+Its use requires knowledge of CDF that is not required to use the other
+parts of this application.&nbsp; The Attributes Editor does not enforce
+ISTP/IACG guidelines like the rest of this application does.</td>
+</tr>
+</table>
+
+<h2>
+<a NAME="Opening"></a>Opening the Attributes Editor</h2>
+The Attributes Editor is a seperate, modal window that is opened from the
+<b><tt>Tools</tt></b>
+menu.&nbsp; The left side of the window contains a tree of all the attributes
+defined in the CDF file.&nbsp; The top level of the tree list the global
+attributes and each variable.
+<h2>
+<a NAME="Menus"></a>Menus</h2>
+The menu bar at the top of the editor provides access to the operations
+that a user can perform in the editor.
+<br>The following menus are available:
+<ul>
+<li>
+<a href="#WindowMenu">Window</a></li>
+
+<li>
+<a href="#EditMenu">Edit</a></li>
+</ul>
+
+<h2>
+<a NAME="WindowMenu"></a>Window Menu</h2>
+The <tt>Window</tt> menu contains the following item:
+<br>&nbsp;
+<table BORDER WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<th ALIGN=LEFT NOSAVE>Close</th>
+
+<td>Closes the <b><tt>Attributes Editor</tt></b> window.</td>
+</tr>
+</table>
+
+<h2>
+<a NAME="EditMenu"></a>Edit Menu</h2>
+The Edit menu contains the following items:
+<br>&nbsp;
+<table BORDER WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<th ALIGN=LEFT NOSAVE>Cut</th>
+
+<td></td>
+
+<td>Deletes the current selection and places it on the clipboard.</td>
+</tr>
+
+<tr NOSAVE>
+<th ALIGN=LEFT NOSAVE>Copy</th>
+
+<td></td>
+
+<td>Copies the current selection to the clipboard.</td>
+</tr>
+
+<tr NOSAVE>
+<th ALIGN=LEFT NOSAVE>Paste</th>
+
+<td></td>
+
+<td>Pastes the contents of the clipboard at the insert point.</td>
+</tr>
+
+<tr NOSAVE>
+<th ALIGN=LEFT NOSAVE>Select All</th>
+
+<td></td>
+
+<td>Selects all the text in the field that currently has focus.</td>
+</tr>
+
+<tr NOSAVE>
+<th ALIGN=LEFT ROWSPAN="2" NOSAVE>Add New</th>
+
+<th ALIGN=LEFT NOSAVE><a href="#NewAttribute">Attribute</a></th>
+
+<td>Creates a new attribute.</td>
+</tr>
+
+<tr NOSAVE>
+<th ALIGN=LEFT NOSAVE><a href="#NewGlobalAttributeEntry">Global Attribute
+Entry</a></th>
+
+<td>Creates a new global attribute entry.</td>
+</tr>
+
+<tr NOSAVE>
+<th ALIGN=LEFT ROWSPAN="2" NOSAVE>Delete</th>
+
+<th ALIGN=LEFT NOSAVE><a href="#DeleteAttribute">Attribute</a></th>
+
+<td>Deletes the currently selected attribute.</td>
+</tr>
+
+<tr NOSAVE>
+<th ALIGN=LEFT NOSAVE><a href="#DeleteGlobalAttributeEntry">Global Attribute
+Entry</a></th>
+
+<td>Deletes the currently selected global attribute entry.</td>
+</tr>
+</table>
+
+<h2>
+<a NAME="ViewingGlobalAttributes"></a>Viewing Global Attributes</h2>
+To view the names of all&nbsp;<object classid="java:com.sun.java.help.impl.JHSecondaryViewer"><param name="content" value="GlobalAttributes.html"><param name="viewerActivator" value="javax.help.LinkLabel"><param name="viewerStyle" value="javax.help.Popup"><param name="viewerSize" value="300,200"><param name="text" value="global attributes"></object>,
+expand the <b><tt>Global Attributes</tt></b> node of the tree.&nbsp; Once
+the names of the global attributes are visible, the attribute's entry (or
+entries) can be displayed by selecting the attribute in the tree.&nbsp;
+If an entry is defined for the selected attribute, its data type and value
+are displayed on the right side of the window.&nbsp; For convienence, when
+all entries of a global attribute are of type CHAR, all entries are shown
+in a single text area and a <b><tt>preserve lines</tt></b> checkbox appears
+at the bottom of the area.&nbsp; If the <b><tt>preserve lines</tt></b>
+box is checked, then each line of text is saved as a single entry.&nbsp;
+If the <tt><b>preserve lines</b> </tt>box is not checked, then all the
+text (possibly multiple lines) is save as a single entry.
+<h2>
+<a NAME="ViewingVariableAttributes"></a>Viewing Variable Attributes</h2>
+To view the attributes of a variable, expand the variable's node in the
+tree.&nbsp; Once the variable's attributes are visible, a specific attribute
+may be selected.&nbsp; Once a specific attribute is selected, its entry
+is displayed on the right side of the window.
+<h2>
+<a NAME="NewAttribute"></a>Creating a New Attribute</h2>
+To create a new attribute, you must first select the <b><tt>Global Attributes</tt></b>
+node or a variable node in the selection tree at the left side of the window.&nbsp;
+Next, select <b><tt>Add New/Attribute</tt></b> from the <b><tt>Edit</tt></b>
+menu.&nbsp; This will present a dialog box in which the name of the new
+attribute is specified.&nbsp; After a name is entered and the dialog dismissed,
+the new attribute appears in the tree.
+<h2>
+<a NAME="NewGlobalAttributeEntry"></a>Creating a New Global Attribute Entry</h2>
+To create a new global attribute entry, select the global attribute node
+in the selection tree at the left side of the window. Then, select <b><tt>Add
+New/Global Attribute Entry</tt></b> from the <b><tt>Edit</tt></b> menu.&nbsp;
+Now the data type and value of the entry may be set on the right side of
+the window.
+<h2>
+<a NAME="DeleteAttribute"></a>Deleting an Attribute</h2>
+
+<h2>
+<a NAME="DeleteGlobalAttributeEntry"></a>Deleting a Global Attribute Entry</h2>
+
+<h2>
+See Also</h2>
+
+<ul>
+<li>
+Description of CDF (see https://cdf.gsfc.nasa.gov/).</li>
+
+<li>
+Other CDF tools (see https://cdf.gsfc.nasa.gov/).</li>
+
+<li>
+Other Space Physics tools 
+(see https://spdf.gsfc.nasa.gov/sp_use_of_cdf.html).</li>
+
+</ul>
+
+</body>
+</html>

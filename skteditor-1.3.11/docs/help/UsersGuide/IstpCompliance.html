@@ -1,0 +1,101 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Bernie Harris">
+   <meta name="GENERATOR" content="Mozilla/4.75 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000FF" vlink="#FF0000" alink="#000088">
+
+<h2>
+SPDF/ISTP Compliance</h2>
+
+<h2>
+<a NAME="Introduction"></a>Introduction</h2>
+This application's primary purpose is to facilitate the construction of
+skeleton CDF files that conform to the&nbsp; Space Physics Data Facility
+Guidelines for CDF (see https://spdf.gsfc.nasa.gov/sp_use_of_cdf.html).&nbsp;
+The application may be used to create new skeleton CDF files or it may
+be used to edit existing files.&nbsp; While the application encourages
+the user to create fully compliant files, it does allow non-compliant files
+to be saved.&nbsp; During editing of a file, the file will necessarily
+be non-compliant at times.&nbsp; Therefore, the user is partially responsible
+for initiating compliance checks at appropriate and convenient times during
+their editing session.&nbsp; The application automatically performs certain
+compliance checks when opening an existing file.&nbsp; An automatic variable
+compliance check is also performed each time the user selects a different
+variable on the <b><tt>Variable</tt></b> panel.&nbsp; There are three levels
+of compliance checks that a user may initiate.&nbsp; Each of these is described
+below.&nbsp; For all compliance checking operations, diagnostic messages
+concerning compliance are desplayed in the <b><tt>Messages</tt></b> window
+which is displayed by selecting the <b><tt>Show Messages</tt></b> button
+at the bottom righthand corner of the editor window.
+<p><img SRC="MessagesWindow.gif" ALT="Message Window" height=344 width=731>
+<h2>
+<a NAME="GlobalAttributes"></a>Global Attributes</h2>
+The SPDF/ISTP Guidelines 
+(see https://spdf.gsfc.nasa.gov/istp_guide/gattributes.html)
+specify global attributes that should be defined.&nbsp; Compliance with
+the guideline's required global attributes may be check independently of
+other aspects of compliance.
+<p><b>To check the compliance of the global attributes</b>
+<ul>
+<li>
+Choose <b><tt>ISTP Compliance Check/Global Attributes</tt></b> from the
+<b><tt>Tools</tt></b> menu</li>
+
+<br>&nbsp;
+<p>&nbsp;
+<p><img SRC="ComplianceCheckSelect.gif" height=178 width=544></ul>
+
+<h2>
+<a NAME="Variable"></a>Variable</h2>
+The SPDF/ISTP Guidelines 
+(see https://spdf.gsfc.nasa.gov/istp_guide/variables.html)
+specify many details of how variables and their attributes should be defined.&nbsp;
+The compliance of an individual variable's definition may be check independently
+of other aspects of compliance.
+<p><b>To check the compliance of a single variable definition</b>
+<ul>
+<li>
+Select the variable from the list of variables on <b><tt>Variables</tt></b>
+panel</li>
+
+<li>
+Choose <b><tt>Check</tt></b> from the <b><tt>Variables</tt></b> menu <b>or</b>
+select the <b><tt>Check</tt></b> button in the upper right hand corner
+of the <b><tt>Variables</tt></b> panel</li>
+
+<br><img SRC="ComplianceCheckVarSelect.gif" height=236 width=740></ul>
+
+<h2>
+<a NAME="File"></a>File</h2>
+The&nbsp; Space Physics Guideline for CDF 
+(see https://spdf.gsfc.nasa.gov/sp_use_of_cdf.html)
+compliance of the entire file (both global attributes and all variable
+definitions) may be check in a single operation.
+<p><b>To check the compliance of the entire file</b>
+<ul>
+<li>
+Choose <b><tt>ISTP Compliance Check/Entire File</tt></b> from the <b><tt>Tools</tt></b>
+menu</li>
+
+<br><img SRC="ComplianceCheckSelect.gif" height=178 width=544></ul>
+
+<h2>
+See also:</h2>
+
+<ul>
+<li>
+Space Physics Guidelines for CDF 
+(see https://spdf.gsfc.nasa.gov/sp_use_of_cdf.html).</li>
+
+<li>
+<a href="GlobalAttributesPanel.html">Global Attributes</a>.</li>
+
+<li>
+<a href="Variables.html">Variables</a>.</li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,1113 @@
+<!--
+ NOSA HEADER START
+
+ The contents of this file are subject to the terms of the NASA Open
+ Source Agreement (NOSA), Version 1.3 only (the "Agreement").  You may
+ not use this file except in compliance with the Agreement.
+
+ You can obtain a copy of the agreement at
+   docs/NASA_Open_Source_Agreement_1.3.txt
+ or
+   https://sscweb.gsfc.nasa.gov/skteditor/NASA_Open_Source_Agreement_1.3.txt
+
+ See the Agreement for the specific language governing permissions
+ and limitations under the Agreement.
+
+
+ When distributing Covered Code, include this NOSA HEADER in each
+ file and include the Agreement file at
+ docs/NASA_Open_Source_Agreement_1.3.txt.  If applicable, add the
+ following below this NOSA HEADER, with the fields enclosed by
+ brackets "[]" replaced with your own identifying information:
+ Portions Copyright [yyyy] [name of copyright owner]
+
+ NOSA HEADER END
+
+ Copyright (c) 2015-2020 United States Government as represented by
+ the National Aeronautics and Space Administration. No copyright is
+ claimed in the United States under Title 17, U.S.Code. All Other
+ Rights Reserved.
+
+-->
+
+<project name="ISTP CDF Skeleton Editor" default="build" basedir=".">
+
+  <property file="build.properties"/>
+
+     <property environment="env" />
+     <property name="cdf.base.dir" value="${env.CDF_BASE}" />
+     <property name="cdf.bin.dir" value="${env.CDF_BIN}" />
+<!-- used with beta versions of cdf  
+     <property name="cdf.lib.dir" value="lib" />
+-->
+     <property name="cdf.lib.dir" value="${env.CDF_LIB}" />
+     <property name="cdf.jar" value="${cdf.lib.dir}/cdfjava.jar" />
+     <property name="pack200" value="${java.home}/bin/pack200" />
+
+  <presetdef name="javac">
+    <javac includeantruntime="false" />
+  </presetdef>
+
+<!-- requires JDK 1.7 
+  <taskdef name="bundleapp"
+         classname="com.oracle.appbundler.AppBundlerTask"
+         classpath="lib/MacAppBundler/appbundler-1.0.jar" />
+ end requires JDK 1.7 -->
+
+  <path id="cdf.classpath">
+    <pathelement location="${cdf.jar}" />
+  </path>
+
+  <path id="cdf.validation.classpath">
+    <fileset dir="${cdf.validation.dir}">
+      <include name="*.jar" />
+    </fileset>
+  </path>
+
+  <path id="cdasws.classpath">
+    <fileset dir="${cdasws.dir}">
+      <include name="*.jar" />
+    </fileset>
+  </path>
+
+  <path id="cdf.librarypath">
+    <fileset dir="${cdf.lib.dir}">
+      <!-- 
+      This pathref is currently only used in the build-osx-app target
+      so it only needs OS X CDF native libraries (do not need *.so, 
+      *.dll).
+      -->
+      <include name="*.so" />
+      <include name="*.jnilib" />
+      <include name="*.dylib" />
+    </fileset>
+  </path>
+
+  <!-- jdk 11 -->
+  <path id="jaxb.classpath">
+    <fileset dir="${javaee.mod}">
+      <include name="jakarta.xml.bind-api.jar" />
+      <include name="jakarta.activation.jar" />
+      <include name="jaxb-osgi.jar" />
+      <!-- jakarta ee 10 
+      <include name="jakarta.activation-api.jar" />
+      -->
+    </fileset>
+  </path>
+  <!-- end jdk 11 -->
+
+  <target name="set-os-props"
+     description="Sets OS dependant properties" >
+     <exec executable="hostname" outputproperty="hostname" />
+     <condition property="script-suffix" value="bat">
+        <os family="windows"/>
+     </condition>
+     <condition property="script-suffix" value="sh">
+        <not>
+           <os family="windows"/>
+        </not>
+     </condition>
+     <condition property="jh-dir" value="${jh.dir.unix}">
+        <os family="unix" />
+     </condition>
+     <condition property="osx">
+        <os name="Mac OS X" />
+     </condition>
+<!--
+     <condition property="jh-dir" value="${jh.dir.solaris}">
+        <os name="SunOS" />
+     </condition>
+     <condition property="jh-dir" value="${jh.dir.macosx}">
+        <os name="Mac OS X" />
+     </condition>
+-->
+     <condition property="jh-dir" value="${jh-dir-win}">
+        <os family="windows"/>
+     </condition>
+     <condition property="jhindexer" value="${jh-dir}/javahelp/bin/jhindexer.bat">
+        <os family="windows"/>
+     </condition>
+     <condition property="jhindexer" value="${jh-dir}/javahelp/bin/jhindexer">
+        <os family="unix"/>
+     </condition>
+     <property name="jh-jar" value="${jh-dir}/javahelp/lib/jh.jar" />
+
+    <path id="jh.classpath">
+      <pathelement location="${jh-jar}" />
+    </path>
+
+    <path id="compile.classpath">
+      <path refid="cdf.classpath" />
+<!--  -->
+      <path refid="cdf.validation.classpath" /> 
+      <path refid="cdasws.classpath" /> 
+<!--  -->
+      <path refid="jh.classpath" />
+      <!-- jdk 11 -->
+      <path refid="jaxb.classpath" />
+      <!-- end jdk 11 -->
+    </path>
+
+    <path id="run.classpath">
+      <path refid="cdf.classpath" />
+<!--  -->
+      <path refid="cdf.validation.classpath" /> 
+      <path refid="cdasws.classpath" /> 
+<!--  -->
+      <path refid="jh.classpath" />
+      <!-- jdk 11 -->
+      <path refid="jaxb.classpath" />
+      <!-- end jdk 11 -->
+      <fileset dir="${dist}">
+<!--
+        <include name="*.jar.classic" />
+-->
+        <include name="*.jar" />
+      </fileset>
+    </path>
+  </target>
+
+  <target name="set-keystore"
+     description="Sets the OS dependent keystore property" >
+     <condition property="keystore" value="${keystore-solaris}">
+        <os name="SunOS"/>
+     </condition>
+     <condition property="keystore" value="${keystore-macosx}">
+        <os name="Mac OS X"/>
+     </condition>
+     <condition property="keystore" value="${keystore-win}">
+        <os family="windows"/>
+     </condition>
+  </target>
+
+  <!-- The following target may still be of use on Windows or Unix
+       platforms where the cdfjava.jar isn't in the CDF_LIB directory
+       but isn't used with CDF 3.0 on ncssparc or ubatuba -->
+  <target name="set-cdf-jar" depends="set-os-props"
+     description="Sets the OS dependent cdf-jar property" >
+     <condition property="cdf-jar" value="${cdf-jar-win}">
+        <os family="windows"/>
+     </condition>
+  </target>
+
+  <target name="prepare" 
+     description="Creates the build and dist directories" >
+     <echo message="Creating the required directories...." />
+     <mkdir dir="${build}/client/resources/" />
+     <mkdir dir="dist/" />
+     <mkdir dir="dist/native" />
+     <mkdir dir="docs/api/" />
+     <mkdir dir="docs/help/UsersGuide/licenses/" />
+  </target>
+
+  <target name="compile-client" depends="prepare,set-os-props,set-cdf-jar"
+      description="Compiles the client-side source code"  >
+      <echo message="Compiling the client source code...."/>
+      <javac
+         target="${java.target}"
+         source="${java.src}"
+         srcdir="src"
+         destdir="${build}/client" >
+        <classpath refid="compile.classpath" />
+<!--
+         extdirs="${java.ext.dirs}"
+        <compilerarg value="-Xlint" />
+-->
+        <bootclasspath>
+          <pathelement path="${java.target.bootclasspath}" />
+        </bootclasspath>
+        <extdirs>
+          <pathelement path="${java.target.extdirs}" />
+        </extdirs>
+        <compilerarg value="-g:source,lines,vars" /> 
+        <compilerarg value="-Xlint:unchecked" />
+        <exclude name="**/tools/CDFCompare.java" />
+        <exclude name="**/tools/CDFConvert.java" />
+        <exclude name="**/tools/CDFDir.java" />
+        <exclude name="**/tools/CDFDump.java" />
+        <exclude name="**/tools/CDFInquire.java" />
+        <exclude name="**/tools/CDFRemoteLibrary.java" />
+        <exclude name="**/tools/CDFStats.java" />
+        <exclude name="**/tools/CDFToolsDriver.java" />
+        <exclude name="**/tools/SimpleFileFilter.java" />
+        <exclude name="**/tools/SkeletonTable.java" />
+        <exclude name="**/tools/SkeletonCDF.java" />
+      </javac>
+  </target>
+
+
+  <target name="jar-client" 
+      description="Builds the JAR file that contains the client">
+     <echo message="Building the client JAR  file...."/>
+     <echo message="Generating dynamic content..." />
+     <tstamp>
+         <format property="BUILD_TIME" pattern="yyyy/MM/dd hh:mm:ss Z" />
+     </tstamp>
+     <copy file="resources/default.properties"
+           toFile="${build}/client/resources/default.properties"
+           overwrite="true" >
+       <filterset begintoken="%" endtoken="*">
+         <filter token="VERSION" value="${rev}${client-version}" />
+         <filter token="BUILD_PLATFORM" 
+                 value="${os.name} ${os.arch} ${os.version}" />
+         <filter token="BUILD_COMPILER" value="${java.version}" />
+         <filter token="BUILD_DATE" value="${BUILD_TIME}" />
+       </filterset>
+     </copy>
+     <copy todir="${build}/client/resources/">
+         <fileset dir="resources/" >
+           <exclude name="resources/default.properties" />
+         </fileset>
+     </copy>
+     <!-- for web site -->
+     <copy file="web/skteditorTemplate.jnlp"
+           tofile="web/skteditor.jnlp"
+           overwrite="true" >
+       <!-- the following filterset may no longer be needed -->
+       <filterset begintoken="%" endtoken="*">
+         <filter token="CODEBASE" value="${deploy.url}" />
+       </filterset>
+     </copy>
+     <!-- for Java 1.7 -->
+     <copy file="web/skteditorTemplate.jnlp"
+           tofile="${build}/client/JNLP-INF/APPLICATION_TEMPLATE.JNLP"
+           overwrite="true" >
+       <!-- the following filterset may no longer be needed -->
+       <filterset begintoken="%" endtoken="*">
+         <filter token="CODEBASE" value="*" />
+       </filterset>
+     </copy>
+     <fixcrlf srcdir="${build}/client/JNLP-INF"
+         eol="unix"
+         includes="**/*.JNLP"
+     />
+<!--
+     <copy todir="${build}/client/">
+         <fileset dir="src" includes="*.txt" />
+     </copy>
+-->
+      <!-- The nozip jar file is named .nozip.jar instead of .jar.nozip
+           (which would be consistent with the .jar.gz and .jar.pack.gz)
+           to satisfy pack200 -->
+<!--
+      <delete file="dist/${client.name}.nozip.jar" />
+      <jar destfile="dist/${client.name}.nozip.jar" 
+        compress="false" >
+        <fileset dir="${build}/client" >
+        </fileset>
+        <manifest>
+          <attribute name="Built-By" value="${user.name}" />
+          <attribute name="Main-Class" 
+                     value="gsfc.spdf.edit.guis.SKTEditor" />
+          <attribute name="Class-Path" 
+                     value="extensions/cdfjava.jar extensions/jh.jar extensions/skteditor-help.jar extensions/cdf-validator.jar extensions/cdfutil-jaxb.jar extensions/jakarta.activation.jar extensions/jakarta.xml.bind-api.jar extensions/jaxb-osgi.jar" />
+          <attribute name="Permissions" 
+                     value="all-permissions" />
+          <attribute name="Codebase" 
+                     value="${codebase}" />
+          <attribute name="Application-Name" 
+                     value="SKTEditor" />
+        </manifest>
+      </jar>
+      <delete file="dist/${client.name}.jar.classic" />
+      <jar destfile="dist/${client.name}.jar.classic" 
+-->
+      <delete file="dist/${client.name}.jar" />
+      <jar destfile="dist/${client.name}.jar" 
+        compress="true" >
+        <fileset dir="${build}/client" >
+        </fileset>
+        <manifest>
+          <attribute name="Main-Class" 
+                     value="gsfc.spdf.edit.guis.SKTEditor" />
+          <attribute name="Class-Path" 
+                     value="extensions/cdfjava.jar extensions/jh.jar extensions/skteditor-help.jar extensions/cdf-validator.jar extensions/cdfutil-jaxb.jar extensions/jakarta.activation.jar extensions/jakarta.xml.bind-api.jar extensions/jaxb-osgi.jar" />
+          <attribute name="Permissions" 
+                     value="all-permissions" />
+          <attribute name="Codebase" 
+                     value="${codebase}" />
+          <attribute name="Application-Name" 
+                     value="SKTEditor" />
+        </manifest>
+      </jar>
+  </target>
+
+  <target name="build-big-jar" depends="set-os-props,jar-client"
+     description="Builds a single jar containing everything">
+    <echo message="Building a single jar containing everything" />
+      <delete file="dist/${client.name}-all.jar" />
+      <jar destfile="dist/${client.name}-all.jar" 
+        compress="true" >
+        <zipfileset excludes="*-INF/**" src="dist/${client.name}.jar" />
+        <zipfileset excludes="*-INF/**" src="dist/${help.name}.jar" />
+        <zipfileset excludes="*-INF/**" src="${cdf.jar}" />
+        <zipfileset includes="**/*.class"
+             src="${jh-jar}" />
+        <zipfileset includes="**/*.class"
+             src="${cdf.validation.dir}/cdf-validator.jar.classic" />
+        <zipfileset includes="**/*.class"
+             src="${cdf.validation.dir}/cdfutil-jaxb.jar.classic" />
+<!--
+        <manifest>
+          <attribute name="Main-Class" 
+                     value="gsfc.spdf.edit.guis.SKTEditor" />
+          <attribute name="Permissions" 
+                     value="all-permissions" />
+          <attribute name="Codebase" 
+                     value="${codebase}" />
+          <attribute name="Application-Name" 
+                     value="SKTEditor" />
+        </manifest>
+-->
+      </jar>
+  </target>
+
+  <target name="build-mac-native" depends="build-big-jar"
+    description="Builds self-contained application bundles">
+    <echo message="Building self-contained application bundles" />
+    <property name="app.name" value="SKTEditor" />
+    <exec executable="javapackager" os="Mac OS X" failonerror="true">
+      <arg line="-deploy" />
+      <arg line="-native image" />
+      <arg line="-srcdir dist" />
+      <arg line="-srcfiles ${client.name}-all.jar" />
+      <arg line="-outdir dist/native" />
+      <arg line="-outfile skteditor" />
+      <arg line="-appclass ${client-class}" />
+      <arg line="-BmainJar=${client.name}-all.jar" />
+      <arg line="-Bicon=resources/MacOsX/nasa-logo.icns" />
+      <arg line="-BlicenseFile=docs/NASA_Open_Source_Agreement_1.3.txt" />
+      <arg line="-Bmac.CDBundleIdentifier={client-class}" />
+<!--
+      <arg line="-Bmac.CFBundleVersion=${rev}" />
+-->
+      <arg line="-Bmac.CFBundleVersion=1.3.2" />
+      <arg line="-Bmac.CFBundleName=${app.name}" />
+      <arg line="-BsystemWide=false" />
+    </exec>
+    <copy todir="dist/native/bundles/${app.name}.app/Contents/MacOS">
+      <fileset dir="${env.CDF_LIB}">
+         <include name="libcdf.dylib" />
+         <include name="libcdfNativeLibrary.jnilib" />
+      </fileset>
+      <fileset dir="${env.CDF_BIN}">
+         <include name="*netCDF*" />
+      </fileset>
+    </copy>
+    <chmod dir="dist/native/bundles/${app.name}.app/Contents/MacOS"
+          perm="755" includes="*" />
+
+    <!-- much of the following was copied from
+         http://www.rkuntz.org/pmwiki.php?n=Code.AntDiskImage -->
+
+    <property name="mountdir" value="/tmp"/>
+
+    <!-- Delete previously created DMG -->
+    <delete file="dist/native/bundles/${app.name}.dmg"
+            quiet="yes" failonerror="false"/>
+
+    <!-- Create a temporary Disk Image -->
+    <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+      <arg value="create"/>
+      <arg value="-srcfolder"/>
+      <arg value="dist/native/bundles/${app.name}.app"/>
+      <arg value="-volname"/>
+      <arg value="${app.name}"/>
+      <arg value="-ov"/>
+      <arg value="dist/native/bundles/${app.name}-tmp.dmg"/>
+      <arg value="-format"/>
+      <arg value="UDRW"/>
+    </exec>
+
+    <!-- Attach the temporary image -->
+    <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+      <arg value="attach"/>
+      <arg value="dist/native/bundles/${app.name}-tmp.dmg"/>
+      <arg value="-mountroot"/>
+      <arg value="${mountdir}/"/>
+    </exec>
+
+    <!-- Copy the background, the volume icon and DS_Store files -->
+<!--
+    <mkdir dir="${mountdir}/${app.name}/.background"/>
+    <copy file="background.png"
+          tofile="${mountdir}/${app.name}/.background/background.png"
+          overwrite="true"/>
+    <copy file="VolumeIcon.icns"
+          tofile="${mountdir}/${app.name}/.VolumeIcon.icns"
+          overwrite="true"/>
+-->
+    <copy file="resources/MacOsX/nasa-logo.icns"
+          tofile="${mountdir}/${app.name}/.VolumeIcon.icns"
+          overwrite="true"/>
+    <copy file="resources/MacOsX/DS_Store"
+          tofile="${mountdir}/${app.name}/.DS_Store"
+          overwrite="true"/>
+
+    <!-- Indicate that we want a custom icon -->
+<!--
+    <exec executable="/Developer/Tools/SetFile" os="Mac OS X">
+      <arg value="-a"/>
+      <arg value="C"/>
+      <arg value="${mountdir}/${app.name}"/>
+    </exec>
+-->
+
+    <!-- Add a symbolic link to the Applications directory -->
+    <symlink link="${mountdir}/${app.name}" resource="/Applications"/>
+
+    <!-- Detach the temporary image -->
+    <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+      <arg value="detach"/>
+      <arg value="${mountdir}/${app.name}"/>
+    </exec>
+
+    <!-- Compress it to a new image and delete the temporary 
+         Note: this does not work on macOS 10.13 and APFS.
+    <exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
+      <arg value="convert"/>
+      <arg value="-debug"/>
+      <arg value="dist/native/bundles/${app.name}-tmp.dmg"/>
+      <arg value="-format"/>
+      <arg value="UDZO"/>
+      <arg value="-o"/>
+      <arg value="dist/native/bundles/${app.name}.dmg"/>
+    </exec>
+    <delete file="dist/native/bundles/${app.name}-tmp.dmg"
+            quiet="yes" failonerror="false"/>
+    -->
+    <move file="dist/native/bundles/${app.name}-tmp.dmg"
+        tofile="dist/native/bundles/${app.name}.dmg" />
+
+    <!-- This doesn't seem to work on an APFS system
+    <exec executable="bin/make-diskimage" os="Mac OS X">
+        <arg value="dist/native/bundles/${osx.app.name}.dmg" />
+        <arg value="dist/native/bundles/SKTEditor.app" />
+        <arg value="${osx.app.name}" />
+        <arg value="-null-" />
+        <arg value="resources/MacOsX/DS_Store" />
+        <arg value="docs/nasaball.png" />
+    </exec>
+    -->
+  </target>
+
+  <target name="build-jnlp-jars" depends="build"
+     description="Builds the jar files for the jnlp application" >
+    <echo message="Building the jar files for a jnlp deployment" />
+    <input message="Enter keystore password"
+           addproperty="keystore.pass" />
+    <input message="Enter alias password"
+           addproperty="key.pass" />
+    <antcall target="build-alt-jars" >
+      <param name="file.param" value="dist/${client.name}" />
+      <param name="keystore.pass.param" value="${keystore.pass}" />
+      <param name="key.pass.param" value="${key.pass}" />
+    </antcall>
+    <antcall target="build-alt-jars" >
+      <param name="file.param" value="dist/${help.name}" />
+      <param name="keystore.pass.param" value="${keystore.pass}" />
+      <param name="key.pass.param" value="${key.pass}" />
+    </antcall>
+  </target>
+
+  <target name="build-alt-jars" depends="set-os-props,set-keystore"
+     description="Builds alternative (gzip, pack200) versions of a jar" >
+    <echo message="Building alternative versions of ${file.param}." />
+    <exec executable="${pack200}" >
+      <arg line="--repack" />
+      <arg line="${file.param}.nozip.jar" />
+    </exec>
+    <signjar jar="${file.param}.jar.classic"
+             keystore="${keystore}"
+             storepass="${keystore.pass}"
+             keypass="${key.pass}"
+             tsaurl="${tsa.url}"
+             alias="ssdoo-key" />
+    <signjar jar="${file.param}.nozip.jar"
+             keystore="${keystore}"
+             storepass="${keystore.pass}"
+             keypass="${key.pass}"
+             tsaurl="${tsa.url}"
+             alias="ssdoo-key" />
+    <gzip src="${file.param}.nozip.jar" destfile="${file.param}.jar.gz" />
+    <exec executable="${pack200}" >
+      <arg line="${file.param}.jar.pack.gz" />
+      <arg line="${file.param}.nozip.jar" />
+    </exec>
+  </target>
+
+
+  <target name="init-osx" depends="prepare"
+     description="Creates the OS X application bundle directories" >
+     <echo message="Creating the required directories...." />
+     <mkdir dir="dist/MacOsX/${osx.app.name}.app" />
+     <mkdir dir="dist/MacOsX/${osx.app.name}.app/Contents" />
+     <mkdir dir="dist/MacOsX/${osx.app.name}.app/Contents/MacOS" />
+     <mkdir dir="dist/MacOsX/${osx.app.name}.app/Contents/Resources" />
+     <mkdir dir="dist/MacOsX/${osx.app.name}.app/Contents/Resources/Java" />
+  </target>
+
+  <target name="build-osx-j6app" depends="init-osx,build"
+      description="Builds an OS X application bundle">
+    <echo message="Building OS X application bundle...."/>
+    <!-- build .../MacOS  -->
+<!-- If JavaApplicationStub cannot be made to set the necessary
+     environment variables, consider using a shell script.
+    <copy file="resources/MacOsX/JavaApplicationStub.sh"
+          todir="dist/MacOsX/${osx.app.name}.app/Contents/MacOS" />
+-->
+    <copy file="/System/Library/Frameworks/JavaVM.framework/Versions/Current/Resources/MacOS/JavaApplicationStub"
+          todir="dist/MacOsX/${osx.app.name}.app/Contents/MacOS" />
+    <copy todir="dist/MacOsX/${osx.app.name}.app/Contents/MacOS">
+      <fileset dir="${cdf.bin.dir}">
+        <include name="skeleton*" />
+      </fileset>
+    </copy>
+    <chmod dir="dist/MacOsX/${osx.app.name}.app/Contents/MacOS"
+          perm="755" includes="*" />
+    <!-- build .../Contents  -->
+    <copy todir="dist/MacOsX/${osx.app.name}.app/Contents">
+      <fileset dir="resources/MacOsX">
+        <include name="Info.plist" />
+        <include name="PkgInfo" />
+      </fileset>
+    </copy>
+<!--
+    <copy file="resources/MacOsX/DS_Store"
+          tofile="dist/MacOsX/.DS_Store" />
+    <copy file="/Library/Application Support/Apple/Developer Tools/Project Templates/Java/Java Swing Application/GenericJavaApp.icns"
+          todir="dist/MacOsX/${osx.app.name}.app/Contents/Resources" />
+-->
+    <!-- build .../Resources  -->
+    <copy file="docs/nasaball.png"
+          todir="dist/MacOsX/${osx.app.name}.app/Contents/Resources" />
+    <!-- build .../Resources  -->
+    <copy todir="dist/MacOsX/${osx.app.name}.app/Contents/Resources/Java">
+      <fileset dir="dist" >
+        <include name="*.jar.classic" />
+      </fileset>
+      <mapper type="regexp" from="^(.*).classic$$" to="\1" />
+    </copy>
+    <copy todir="dist/MacOsX/${osx.app.name}.app/Contents/Resources/Java">
+      <fileset dir="${cdf.lib.dir}" >
+        <include name="cdfjava.jar" />
+      </fileset>
+      <fileset dir="${cdf.validation.dir}" >
+        <include name="*.jar" />
+      </fileset>
+    </copy>
+    <copy file="${jh-jar}"
+          todir="dist/MacOsX/${osx.app.name}.app/Contents/Resources/Java" />
+    <!-- be certain that following CDF libraries match the 32/64 bitness
+         of the JavaApplicationStub we are using. -->
+    <copy todir="dist/MacOsX/${osx.app.name}.app/Contents/Resources">
+      <fileset dir="${cdf.lib.dir}" >
+        <include name="*.dylib" />
+        <include name="*.jnilib" />
+      </fileset>
+      <fileset dir="${cdf.base.dir}" >
+        <include name="*.txt" />
+      </fileset>
+    </copy>
+    <chmod dir="dist/MacOsX/${osx.app.name}.app/Contents/Resources"
+           perm="755">
+      <fileset dir="${cdf.lib.dir}" >
+        <include name="*.dylib" />
+        <include name="*.jnilib" />
+      </fileset>
+    </chmod>
+    <!-- build .../Contents  -->
+    <chmod file="dist/MacOsX/${osx.app.name}.app/Contents/Resources/libcdfNativeLibrary.jnilib"
+          perm="755" />
+    <exec executable="/Developer/Tools/SetFile">
+        <arg line="-a B dist/MacOsX/${osx.app.name}.app"/>
+    </exec>
+  </target>
+
+  <target name="build-osx-dmg" depends="build-osx-j6app"
+      description="Builds a OS X disk image">
+     <echo message="Building OS X disk image...."/>
+    <delete file="dist/${osx.app.name}.dmg" />
+    <exec executable="bin/make-diskimage">
+        <arg value="dist/${osx.app.name}.dmg" />
+        <arg value="dist/MacOsX" />
+        <arg value="${osx.app.name}" />
+        <arg value="-null-" />
+<!--
+        <arg value="resources/MacOsX/DS_Store" />
+        <arg value="docs/nasaball.png" />
+-->
+    </exec>
+  </target>
+
+<!-- requires JDK 1.7 -->
+  <target name="build-osx-app"
+       depends="init-osx,build" if="osx" >
+    <bundleapp outputdirectory="dist"
+        name="SktEditor"
+        displayname="ISTP Skeleton CDF Editor"
+        identifier="${client-class}"
+        mainclassname="${client-class}">
+        <runtime dir="${env.JAVA_HOME}" />
+    </bundleapp>
+    <!-- 
+      The following is used because MacAppBundler 1.0 did not support
+      multiple files in classpath and librarypath elements.  Both
+        <classpath refid="run.classpath" />
+        <librarypath refid="cdf.librarypath" />
+      and
+        <property name="prop.run.classpath" refid="run.classpath" />
+        <property name="prop.cdf.librarypath" refid="cdf.librarypath" />
+        ...
+        <classpath file="{prop.run.classpath}" />
+        <librarypath file="{prop.cdf.librarypath}" />
+      and
+        <classpath>
+          <fileset ... />
+        </classpath>
+        <librarypath>
+          <fileset ... />
+        </librarypath>
+      were tried with no success.
+    -->
+    <copy todir="${dist}/SktEditor.app/Contents/Java">
+      <fileset file="${cdf.jar}" />
+      <fileset dir="${cdf.validation.dir}">
+        <include name="*.jar" />
+      </fileset>
+      <fileset file="${jh-jar}" />
+      <fileset dir="${dist}">
+<!--
+        <include name="*.jar.classic" />
+-->
+        <include name="*.jar" />
+      </fileset>
+    </copy>
+    <copy todir="${dist}/SktEditor.app/Contents/MacOS">
+      <fileset dir="${cdf.lib.dir}">
+        <include name="*.jnilib" />
+        <include name="*.dylib" />
+      </fileset>
+    </copy>
+    <chmod perm="755">
+      <fileset dir="${dist}/SktEditor.app/Contents/MacOS">
+        <include name="*.jnilib" />
+        <include name="*.dylib" />
+      </fileset>
+    </chmod>
+  </target>
+<!-- end requires JDK 1.7 -->
+
+  <target name="run" depends="set-os-props,set-cdf-jar"
+     description="Runs the example client">
+     <echo message="Running the ${client-class} program:" />
+     <echo message="java -classpath dist/${client.name}.jar:dist/${help.name}.jar:${cdf.jar}:${jh-jar} ${client-class} " />
+     <echo message=" " />
+      <java fork="on" classname="${client-class}" >
+        <classpath refid="run.classpath" />
+        <jvmarg value="-ea:gsfc..." />
+        <!-- for aarch64 macos 13, XQuartz 2.8.5 -->
+        <jvmarg value="-Dsun.java2d.xrender=false" />
+        <jvmarg value="-Dsun.java2d.pmoffscreen=false" />
+<!-- JDK 9
+        <jvmarg value="- -add-modules=java.xml.bind" />
+-->
+<!--
+        <jvmarg value="-Xcheck:jni" />
+        <sysproperty key="suppress" value="NON_STANDARD_FILLVAL,MISSING_SPASE_ID" />
+-->
+        <arg line="${test.files}" />
+<!--
+        <arg line="-o ${notes.file} ${test.files}" />
+-->
+<!--
+        <sysproperty key="swing.defaultlaf" 
+                   value="javax.swing.plaf.nimbus.NimbusLookAndFeel" />
+-->
+        <sysproperty key="apple.laf.useScreenMenuBar" 
+                   value="true" />
+        <sysproperty key="com.apple.mrj.application.apple.menu.about.name" 
+                   value="${osx.app.name}" />
+        <sysproperty key="cdf.checksum" value="${cdf.checksum.value}" />
+<!--
+        <sysproperty key="cdf.validation.criteria" 
+                   value="${cdf.validation.file}" />
+-->
+<!-- uncomment if necessary or to test functionality
+        <sysproperty key="jnlp.cdf.base" value="${cdf.base.dir}" />
+        <sysproperty key="cdf.base" value="${cdf.base.dir}" />
+        <sysproperty key="cdf.bin" value="${cdf.bin.dir}" />
+-->
+        <sysproperty key="skteditor.cdf.debug" value="false" />
+      </java>
+  </target>
+
+
+  <target name="build" depends="prepare,compile-client,build-help,jar-client"
+     description="Executes the targets needed to build the application.">
+<!--
+    <condition property="deploy.path" value="/~${deploy.user}/skteditor" >
+      <isset property="deploy.user" />
+    </condition>
+    <condition property="deploy.path" value="/skteditor" >
+      <not>
+        <isset property="deploy.user" />
+      </not>
+    </condition>
+    <antcall target="jar-client" >
+      <param name="deploy.url" value="http://${deploy.host}${deploy.path}" />
+      <param name="jar.id" value="${deploy.user}" />
+    </antcall>
+-->
+  </target>
+
+
+  <target name="build-pkgs" depends="build,pkg-source,pkg-app"
+     description="Builds all distribution files except Mac OS 8/9 files.">
+  </target>
+
+
+  <target name="pkg-source"
+    description="Packages the source code">
+    <echo message="Packaging the source code...." />
+    <delete file="dist/${src-pkg-name}.zip" />
+    <zip zipfile="dist/${src-pkg-name}.zip" >
+      <zipfileset dir="src" includes="**/*.java,**/*.html"
+                  prefix="${pkg-name}/src" />
+      <zipfileset dir="docs/help" includes="**/*"
+                  prefix="${pkg-name}/docs/help" />
+      <zipfileset dir="web" includes="license.html"
+                  prefix="${pkg-name}/web" />
+      <zipfileset dir="resources" 
+                  includes="*.properties,*.resources,images/**/*"
+                  prefix="${pkg-name}/resources" />
+      <zipfileset dir="." includes="build.properties,build.xml,targets.xml"
+                  prefix="${pkg-name}" />
+    </zip>
+    <checksum file="dist/${src-pkg-name}.zip" algorithm="${file.hash}" />
+  </target>
+        
+
+  <target name="pkg-app" depends="build"
+    description="Packages a standalone version of the application">
+    <echo message="Packaging a standalone version of the application...." />
+    <delete file="dist/${app-name}.zip" />
+    <zip zipfile="dist/${app-name}.zip" >
+      <zipfileset dir="dist" includes="${client.name}.jar"
+          fullpath="${pkg-name}/${client.name}.jar" />
+      <zipfileset dir="dist" includes="${help.name}.jar"
+          fullpath="${pkg-name}/extensions/${help.name}.jar" />
+      <zipfileset dir="${jh-dir}/javahelp/lib" includes="jh.jar"
+          prefix="${pkg-name}/extensions" />
+      <zipfileset file="${cdf.jar}"
+          prefix="${pkg-name}/extensions" />
+      <zipfileset dir="${cdf.validation.dir}" 
+          includes="cdf-validator.jar.classic"
+          fullpath="${pkg-name}/extensions/cdf-validator.jar" />
+      <zipfileset dir="${cdf.validation.dir}" 
+          includes="cdfutil-jaxb.jar.classic"
+          fullpath="${pkg-name}/extensions/cdfutil-jaxb.jar" />
+      <zipfileset dir="${cdasws.dir}" 
+          includes="cdasWebServices-jaxb.jar"
+          fullpath="${pkg-name}/extensions/cdasWebServices-jaxb.jar" />
+      <!-- For JDK 11.  The following zipfileset is a duplicate of 
+           jaxb.classpath but I do not know how to use jaxb.classpath 
+           here to get the files. -->
+      <zipfileset dir="${javaee.mod}" prefix="${pkg-name}/extensions" >
+        <include name="jakarta.xml.bind-api.jar" />
+        <include name="jakarta.activation.jar" />
+        <include name="jaxb-osgi.jar" />
+      </zipfileset>
+<!-- for linux testing (on personal computer)
+<zipfileset dir="${cdf.base.dir}/lib" prefix="${pkg-name}" >
+  <include name="*.so" />
+</zipfileset>
+-->
+    </zip>
+    <checksum file="dist/${app-name}.zip" algorithm="${file.hash}" />
+  </target>
+
+
+<!--
+  <target name="pkg-release" depends="build-jnlp-jars,pkg-source,pkg-app"
+-->
+  <target name="pkg-release" depends="build,pkg-source,pkg-app"
+    description="Creates a zip file containing the entire release">
+    <echo message="Generating release-specific pages..." />
+    <copy file="web/SKTEditorTemplate.html"
+        tofile="web/index.html"
+        overwrite="true">
+      <filterset begintoken="%" endtoken="*">
+        <filter token="MSI-NAME" value="${msi-name}" />
+      </filterset>
+      <filterset begintoken="%" endtoken="*">
+        <filter token="DMG-NAME" value="${dmg-name}" />
+      </filterset>
+      <filterset begintoken="%" endtoken="*">
+        <filter token="SOURCE-ARCHIVE" value="${src-pkg-name}" />
+      </filterset>
+      <filterset begintoken="%" endtoken="*">
+        <filter token="FILE-HASH" value="${file.hash}" />
+      </filterset>
+    </copy>
+    <copy file="web/skteditorTemplate.jnlp"
+          tofile="web/skteditor.jnlp"
+          overwrite="true" >
+      <!-- the following filterset may no longer be needed -->
+      <filterset begintoken="%" endtoken="*">
+        <filter token="CODEBASE" value="${deploy.url}" />
+      </filterset>
+    </copy>
+    <copy file="web/installation/ManualEditorTemplate.html"
+        tofile="web/installation/ManualEditor.html"
+        overwrite="true">
+      <filterset begintoken="%" endtoken="*">
+        <filter token="APP-NAME" value="${app-name}" />
+      </filterset>
+      <filterset begintoken="%" endtoken="*">
+        <filter token="FILE-HASH" value="${file.hash}" />
+      </filterset>
+    </copy>
+    <echo message="Creating release archive..." />
+    <delete file="dist/${pkg-name}.zip" />
+    <zip zipfile="dist/${pkg-name}.zip" >
+      <zipfileset dir="dist" prefix="${pkg-name}" >
+        <include name="*.jar" />
+        <include name="*.jar.classic" />
+        <include name="*.jar.gz" />
+        <include name="*.jar.pack.gz" />
+      </zipfileset>
+      <zipfileset dir="docs" prefix="${pkg-name}/docs" >
+        <include name="ReleaseNotes.html" />
+        <include name="nasaball.png" />
+        <include name="NASA_Open_Source_Agreement*.txt" />
+      </zipfileset>
+      <zipfileset dir="web" prefix="${pkg-name}" >
+        <include name="**/*.html" />
+        <include name="**/*.txt" />
+        <include name="**/*.gif" />
+        <include name="**/*.jpg" />
+        <include name="**/*.png" />
+        <include name="**/*.jnlp" />
+        <exclude name="**/cdf.jnlp" />
+        <exclude name="**/*Template.html" />
+      </zipfileset>
+      <zipfileset dir="${jh-dir}/javahelp/lib" includes="jh.jar"
+                  prefix="${pkg-name}/JavaHelp" />
+      <zipfileset dir="dist" prefix="${pkg-name}/src" >
+        <include name="${src-pkg-name}*" />
+      </zipfileset>
+      <zipfileset dir="dist" prefix="${pkg-name}" >
+        <include name="**/${app-name}*" />
+      </zipfileset>
+    </zip>
+    <checksum file="dist/${pkg-name}.zip" algorithm="${file.hash}" />
+  </target>
+
+
+  <target name="clean" 
+     description="Removes the build and dist directories">
+    <delete dir="${build}" />
+    <delete dir="dist" />
+    <delete dir="docs/api" />
+  </target>
+
+  <target name="javadoc-check" depends="set-os-props"
+     description="Checks javadoc documentation ">
+     <echo message="Generating Doc Check Reports ...."/>
+     <mkdir dir="docs/api-check" />
+     <javadoc
+              doclet="com.sun.tools.doclets.doccheck.DocCheck"
+              docletpath="${user.home}/opt/doccheck1.2b2/doccheck.jar"
+              defaultexcludes="yes"
+              destdir="docs/api-check"
+              author="true"
+              version="true"
+              private="true"
+              additionalparam="-breakiterator -evident 5">
+       <classpath>
+         <pathelement location="${jh-jar}" />
+         <pathelement location="${apple-jar}" />
+         <path refid="cdf.classpath" />
+         <path refid="cdf.validation.classpath" /> 
+         <path refid="cdasws.classpath" /> 
+       </classpath>
+       <packageset dir="src" defaultexcludes="yes">
+         <include name="gsfc/spdf/istp/**" />
+         <include name="gsfc/spdf/cdf/**" />
+         <exclude name="gsfc/spdf/cdf/tools/**" />
+         <exclude name="gsfc/spdf/istp/tools/CleanAttributes.java" />
+         <exclude name="gsfc/spdf/istp/tools/GetAttributes.java" />
+         <exclude name="gsfc/spdf/istp/tools/CDFCheck.java" />
+       </packageset>
+     </javadoc>
+  </target>
+
+  <target name="javadoc" depends="prepare, set-os-props"
+     description="Creates javadoc documentation from the source code">
+<!--
+              excludepackagenames="gsfc.spdf.cdf.tools"
+-->
+     <javadoc packagenames="gsfc.spdf.*"
+              sourcepath="src"
+              defaultexcludes="yes"
+              destdir="docs/api"
+              author="true"
+              version="true"
+              private="true"
+              use="true"
+              windowtitle="ISTP CDF Skeleton Editor">
+        <classpath>
+          <pathelement location="${cdf.jar}" />
+          <pathelement location="${jh-jar}" />
+          <pathelement location="${apple-jar}" />
+<!--  -->
+          <path refid="cdf.validation.classpath" /> 
+          <path refid="jaxb.classpath" />
+          <path refid="cdasws.classpath" /> 
+<!--  -->
+        </classpath>
+       <packageset dir="src" defaultexcludes="yes">
+         <include name="gsfc/spdf/istp/tools/**" />
+         <exclude name="gsfc/spdf/istp/tools/CleanAttributes.java" />
+         <exclude name="gsfc/spdf/istp/tools/GetAttributes.java" />
+         <exclude name="gsfc/spdf/istp/tools/CDFCheck.java" />
+       </packageset>
+       <bottom><![CDATA[<a href="mailto:NASA-SPDF-Support@nasa.onmicrosoft.com?subject=SKTEditor%20Feedback">SKTEditor Feedback</a>.<br><br>Copyright &#169; 2000-2024 United States Government as represented by the National Aeronautics and Space Administration.  No copyright is claimed in the United States under Title 17, U.S.Code.  All Other Rights Reserved.]]></bottom>
+     </javadoc>
+  </target>
+
+  <target name="javahelp" depends="set-os-props"
+     description="Creates javahelp full-text search database used by the JavaHelp system">
+     <echo message="Generating dynamic content..." />
+     <tstamp>
+         <format property="BUILD_TIME" pattern="yyyy/MM/dd hh:mm:ss Z" />
+     </tstamp>
+     <copy file="${help-dir}/UsersGuide/AboutTemplate.html"
+           toFile="${help-dir}/UsersGuide/About.html" overwrite="true" >
+       <filterset begintoken="%" endtoken="*">
+         <filter token="VERSION" value="${rev}" />
+         <filter token="DATE" value="${BUILD_TIME}" />
+         <filter token="BUILD_PLATFORM" 
+                 value="${os.name} ${os.arch} ${os.version}" />
+         <filter token="BUILD_COMPILER" value="${java.version}" />
+         <filter token="BUILD_TARGET" value="${java.target}" />
+       </filterset>
+     </copy>
+     <copy file="resources/images/LICENSE" 
+           toFile="${help-dir}/UsersGuide/licenses/jlfgr-license.txt" />
+     <copy file="web/license.html" 
+           toFile="${help-dir}/UsersGuide/licenses/license.html" />
+     <copy file="${jh-dir}/LICENSE.html" 
+           toFile="${help-dir}/UsersGuide/licenses/jh-license.html" />
+     <echo message="Running ${jhindexer}: " />
+     <exec dir="${help-dir}" executable="${jhindexer}">
+       <arg line="UsersGuide Tutorial"/>
+     </exec>
+  </target>
+
+  <target name="jar-help" depends="prepare,javahelp"
+      description="Builds the JAR file that contains the help contents">
+      <echo message="Building the help JAR  file...."/>
+<!--
+      <delete file="dist/${help.name}.nozip.jar" />
+      <jar destfile="dist/${help.name}.nozip.jar" 
+        compress="false">
+        <fileset dir="docs" >
+             <include name="help/**" />
+             <exclude name="Tutorial/**" />
+        </fileset>
+        <manifest>
+          <attribute name="Permissions" 
+                     value="all-permissions" />
+          <attribute name="Codebase" 
+                     value="${codebase}" />
+          <attribute name="Application-Name" 
+                     value="SKTEditor Help" />
+        </manifest>
+      </jar>
+      <delete file="dist/${help.name}.jar.classic" />
+      <jar destfile="dist/${help.name}.jar.classic" 
+-->
+      <delete file="dist/${help.name}.jar" />
+      <jar destfile="dist/${help.name}.jar" 
+        compress="true">
+        <fileset dir="docs" >
+             <include name="help/**" />
+             <exclude name="Tutorial/**" />
+        </fileset>
+<!-- doesn't need all-permissions but can't differ from jnlp  -->
+        <manifest>
+          <attribute name="Permissions" 
+                     value="all-permissions" />
+          <attribute name="Codebase" 
+                     value="${codebase}" />
+          <attribute name="Application-Name" 
+                     value="SKTEditor Help" />
+        </manifest>
+      </jar>
+  </target>
+
+  <target name="build-help" depends="javahelp,jar-help"
+     description="Executes the targets needed to build the applications help files.">
+  </target>
+
+  <target name="install" depends="build"
+      description="Installs the application on rumba.gsfc.nasa.gov">
+      <echo message="Installing the application ...."/>
+      <echo message="Copying redistributable files...."/>
+      <copy file="${jh-jar}" todir="dist" />
+      <exec executable="./install.sh" os="Linux">
+        <arg line="${install-dir}" />
+      </exec>
+  </target>
+
+  <target name="ws-install" 
+      description="Installs the application in a Java Web Start site on ubatuba.gsfc.nasa.gov">
+      <echo message="Installing the application on its Web Start site...."/>
+      <echo message="Signing files...."/>
+      <exec executable="jarsigner">
+        <arg value="-keystore ${keystore}" />
+        <arg value="dist/${client.name}.jar.classic" />
+        <arg value="${key-alias}" />
+      </exec>
+      <echo message="Copying files...."/>
+      <copy todir="${ws-install-dir}">
+         <fileset dir="dist/" >
+         </fileset>
+     </copy>
+<!--
+      <exec executable="ws-install.sh" os="SunOS">
+        <arg line="${ws-install-dir}" />
+      </exec>
+-->
+  </target>
+
+  <target name="show-props" depends="set-os-props,set-cdf-jar"
+     description="Displays values of some of the properties of this build file">
+     <echo message="  user.home = ${user.home}" />
+     <echo message="  env.CDF_BASE = ${env.CDF_BASE}" />
+     <echo message="  env.CDF_LIB = ${env.CDF_LIB}" />
+     <echo message="  cdf-base-dir = ${cdf-base-dir}" />
+     <echo message="  cdf.jar = ${cdf.jar}" />
+     <property name="prop.cdf.librarypath" refid="cdf.librarypath" />
+     <echo message="  cdf.librarypath = ${prop.cdf.librarypath}" />
+     <property name="prop.jaxb.classpath" refid="jaxb.classpath" />
+     <echo message="  jaxb.classpath = ${prop.jaxb.classpath}" />
+     <echo message="  jh-jar = ${jh-jar}" />
+     <echo message="  java.home = ${java.home}" />
+     <echo message="  java.version = ${java.version}" />
+     <echo message="  java.target = ${java.target}" />
+     <echo message="  install-dir = ${install-dir}" />
+     <echo message="  os.name = ${os.name}" />
+     <echo message="  os.arch = ${os.arch}" />
+     <echo message="  os.version = ${os.version}" />
+     <echo message="  hostname = ${hostname}" />
+     <echo message="Classpath Information" />
+     <property name="prop.compile.classpath" refid="compile.classpath" />
+     <echo message="  compile.classpath = ${prop.compile.classpath}" />
+     <property name="prop.run.classpath" refid="run.classpath" />
+     <echo message="  run.classpath = ${prop.run.classpath}" />
+  </target>
+
+</project>
